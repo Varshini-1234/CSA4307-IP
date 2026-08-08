@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrandStay Hotel Booking</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#1f2937;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.navbar{
+    background:#142b4a;
+    color:white;
+    padding:17px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#e8b04b;
+}
+
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#e8b04b;
+}
+
+/* HERO */
+
+.hero{
+    min-height:520px;
+    background:linear-gradient(135deg,#142b4a,#315b83);
+    color:white;
+    display:flex;
+    align-items:center;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:48px;
+    max-width:700px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    max-width:650px;
+    line-height:1.7;
+    font-size:18px;
+    color:#e6edf5;
+}
+
+.btn{
+    padding:12px 22px;
+    border:0;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+    margin-top:18px;
+}
+
+.btn-primary{
+    background:#e8b04b;
+    color:#142b4a;
+}
+
+.btn-dark{
+    background:#142b4a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-success{
+    background:#198754;
+    color:white;
+}
+
+/* SEARCH */
+
+.search-panel{
+    background:white;
+    width:86%;
+    max-width:1100px;
+    margin:-45px auto 40px;
+    position:relative;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 5px 25px rgba(0,0,0,.12);
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:15px;
+}
+
+.input-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:7px;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+}
+
+/* SECTIONS */
+
+.section{
+    padding:55px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.section-title h2{
+    color:#142b4a;
+    font-size:30px;
+}
+
+.section-title p{
+    color:#6b7280;
+    margin-top:8px;
+}
+
+/* CARDS */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.card h3{
+    color:#142b4a;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.room-image{
+    height:150px;
+    background:#e9eef5;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:55px;
+    margin-bottom:18px;
+}
+
+.price{
+    font-size:22px;
+    font-weight:bold;
+    color:#b07813;
+    margin-top:12px;
+}
+
+.amenities{
+    margin-top:10px;
+    color:#555;
+    font-size:14px;
+}
+
+/* FORM */
+
+.form-container{
+    max-width:550px;
+    margin:45px auto;
+    background:white;
+    padding:35px;
+    border-radius:10px;
+    box-shadow:0 3px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    color:#142b4a;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+}
+
+.form-group textarea{
+    min-height:100px;
+}
+
+.form-container .btn{
+    width:100%;
+}
+
+/* TABLE */
+
+.table-container{
+    overflow-x:auto;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+}
+
+th{
+    background:#142b4a;
+    color:white;
+}
+
+.badge{
+    padding:6px 10px;
+    border-radius:15px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.available{
+    background:#d1fae5;
+    color:#047857;
+}
+
+.booked{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.stat h2{
+    color:#142b4a;
+    font-size:30px;
+}
+
+.stat p{
+    color:#6b7280;
+    margin-top:7px;
+}
+
+.review{
+    border-left:4px solid #e8b04b;
+}
+
+/* FOOTER */
+
+footer{
+    background:#10233c;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:50px;
+}
+
+footer p{
+    color:#cbd5e1;
+    margin-top:7px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+    .search-panel{
+        margin-top:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+🏨 Grand<span>Stay</span>
+</div>
+
+<ul class="nav-links">
+<li><a onclick="showPage('home')">Home</a></li>
+<li><a onclick="showPage('rooms')">Rooms</a></li>
+<li><a onclick="showPage('bookings')">My Bookings</a></li>
+<li><a onclick="showPage('profile')">Profile</a></li>
+<li><a onclick="showPage('admin')">Admin</a></li>
+<li><a onclick="showPage('about')">About</a></li>
+<li><a onclick="showPage('contact')">Contact</a></li>
+<li><a onclick="showPage('login')">Login</a></li>
+</ul>
+
+</nav>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>Find Your Perfect Stay</h1>
+
+<p>
+Book comfortable and affordable rooms at GrandStay Hotel.
+Check availability, compare room types and manage your
+reservations easily from one platform.
+</p>
+
+<button class="btn btn-primary"
+onclick="showPage('rooms')">
+Explore Rooms
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="search-panel">
+
+<h2 style="color:#142b4a;margin-bottom:20px;">
+Search Hotels
+</h2>
+
+<div class="search-grid">
+
+<div class="input-group">
+<label>Destination</label>
+<input id="destination"
+placeholder="City or destination">
+</div>
+
+<div class="input-group">
+<label>Check-in</label>
+<input type="date" id="checkin">
+</div>
+
+<div class="input-group">
+<label>Check-out</label>
+<input type="date" id="checkout">
+</div>
+
+<div class="input-group">
+<label>Guests</label>
+<select id="guests">
+<option>1 Guest</option>
+<option>2 Guests</option>
+<option>3 Guests</option>
+<option>4 Guests</option>
+<option>5+ Guests</option>
+</select>
+</div>
+
+</div>
+
+<button class="btn btn-dark"
+onclick="searchHotel()">
+Search Availability
+</button>
+
+</div>
+
+
+<div class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Why Choose GrandStay?</h2>
+
+<p>Everything you need for a comfortable hotel experience</p>
+
+</div>
+
+<div class="card-grid">
+
+<div class="card">
+<h3>🔎 Easy Search</h3>
+<p>
+Search hotels and rooms based on destination,
+dates and number of guests.
+</p>
+</div>
+
+<div class="card">
+<h3>🛏️ Multiple Room Types</h3>
+<p>
+Choose from Standard, Deluxe, Suite and Family rooms.
+</p>
+</div>
+
+<div class="card">
+<h3>🔒 Secure Booking</h3>
+<p>
+Book rooms using our simple and secure booking process.
+</p>
+</div>
+
+<div class="card">
+<h3>📱 Responsive Design</h3>
+<p>
+Access the hotel booking system from desktop,
+tablet and mobile devices.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ROOMS -->
+
+<section id="rooms" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Our Rooms</h2>
+
+<p>Choose the room that suits your requirements</p>
+
+</div>
+
+<div class="card-grid">
+
+<!-- STANDARD -->
+
+<div class="card">
+
+<div class="room-image">🛏️</div>
+
+<h3>Standard Room</h3>
+
+<p>
+Comfortable room suitable for one or two guests.
+</p>
+
+<div class="amenities">
+✓ Free Wi-Fi<br>
+✓ Air Conditioning<br>
+✓ TV<br>
+✓ Breakfast
+</div>
+
+<div class="price">
+₹2,500 / night
+</div>
+
+<p>
+<span class="badge available">
+Available
+</span>
+</p>
+
+<button class="btn btn-dark"
+onclick="bookRoom('Standard Room',2500)">
+Book Now
+</button>
+
+</div>
+
+
+<!-- DELUXE -->
+
+<div class="card">
+
+<div class="room-image">🏨</div>
+
+<h3>Deluxe Room</h3>
+
+<p>
+Spacious room with premium facilities and city view.
+</p>
+
+<div class="amenities">
+✓ Free Wi-Fi<br>
+✓ Air Conditioning<br>
+✓ Smart TV<br>
+✓ Breakfast<br>
+✓ City View
+</div>
+
+<div class="price">
+₹4,000 / night
+</div>
+
+<p>
+<span class="badge available">
+Available
+</span>
+</p>
+
+<button class="btn btn-dark"
+onclick="bookRoom('Deluxe Room',4000)">
+Book Now
+</button>
+
+</div>
+
+
+<!-- SUITE -->
+
+<div class="card">
+
+<div class="room-image">🏰</div>
+
+<h3>Luxury Suite</h3>
+
+<p>
+Premium suite designed for a luxurious experience.
+</p>
+
+<div class="amenities">
+✓ King Bed<br>
+✓ Living Area<br>
+✓ Mini Bar<br>
+✓ Free Wi-Fi<br>
+✓ Breakfast
+</div>
+
+<div class="price">
+₹7,500 / night
+</div>
+
+<p>
+<span class="badge available">
+Available
+</span>
+</p>
+
+<button class="btn btn-dark"
+onclick="bookRoom('Luxury Suite',7500)">
+Book Now
+</button>
+
+</div>
+
+
+<!-- FAMILY -->
+
+<div class="card">
+
+<div class="room-image">👨‍👩‍👧‍👦</div>
+
+<h3>Family Room</h3>
+
+<p>
+Large room suitable for families and groups.
+</p>
+
+<div class="amenities">
+✓ Two Double Beds<br>
+✓ Free Wi-Fi<br>
+✓ Breakfast<br>
+✓ Air Conditioning<br>
+✓ Room Service
+</div>
+
+<div class="price">
+₹5,500 / night
+</div>
+
+<p>
+<span class="badge available">
+Available
+</span>
+</p>
+
+<button class="btn btn-dark"
+onclick="bookRoom('Family Room',5500)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BOOKING FORM -->
+
+<section id="booking" class="page section">
+
+<div class="form-container">
+
+<h2>🛎️ Book Your Room</h2>
+
+<form onsubmit="confirmBooking(event)">
+
+<div class="form-group">
+
+<label>Room Type</label>
+
+<input id="selectedRoom"
+readonly>
+
+</div>
+
+<div class="form-group">
+
+<label>Guest Name</label>
+
+<input id="guestName"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email"
+placeholder="Enter email"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Check-in Date</label>
+
+<input type="date"
+id="bookingCheckin"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Check-out Date</label>
+
+<input type="date"
+id="bookingCheckout"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Number of Guests</label>
+
+<select required>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Payment Method</label>
+
+<select required>
+<option>Credit / Debit Card</option>
+<option>UPI</option>
+<option>Net Banking</option>
+</select>
+
+</div>
+
+<button class="btn btn-success">
+Proceed to Secure Payment
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- BOOKINGS -->
+
+<section id="bookings" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>My Booking History</h2>
+
+<p>View and manage your hotel reservations</p>
+
+</div>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+<th>Booking ID</th>
+<th>Room</th>
+<th>Check-in</th>
+<th>Check-out</th>
+<th>Guests</th>
+<th>Amount</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+<tr>
+
+<td>#GS1001</td>
+<td>Deluxe Room</td>
+<td>20-Aug-2026</td>
+<td>23-Aug-2026</td>
+<td>2</td>
+<td>₹12,000</td>
+
+<td>
+<span class="badge available">
+Confirmed
+</span>
+</td>
+
+<td>
+<button class="btn btn-dark"
+onclick="modifyBooking()">
+Modify
+</button>
+
+<button class="btn btn-danger"
+onclick="cancelBooking()">
+Cancel
+</button>
+</td>
+
+</tr>
+
+<tr>
+
+<td>#GS1002</td>
+<td>Standard Room</td>
+<td>05-Jul-2026</td>
+<td>07-Jul-2026</td>
+<td>1</td>
+<td>₹5,000</td>
+
+<td>
+Completed
+</td>
+
+<td>
+Completed
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="page section">
+
+<div class="form-container">
+
+<h2>👤 My Profile</h2>
+
+<div class="form-group">
+<label>Full Name</label>
+<input value="John Doe">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input value="john@example.com">
+</div>
+
+<div class="form-group">
+<label>Phone</label>
+<input value="+91 9876543210">
+</div>
+
+<div class="form-group">
+<label>Address</label>
+<textarea>Chennai, Tamil Nadu</textarea>
+</div>
+
+<button class="btn btn-dark"
+onclick="updateProfile()">
+Update Profile
+</button>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page section">
+
+<div class="form-container">
+
+<h2>🔐 User Login</h2>
+
+<form onsubmit="login(event)">
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email"
+placeholder="Enter email"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input type="password"
+placeholder="Enter password"
+required>
+
+</div>
+
+<button class="btn btn-dark">
+Login
+</button>
+
+</form>
+
+<p style="text-align:center;margin-top:20px;">
+New user?
+<a href="#"
+onclick="showPage('register')">
+Create Account
+</a>
+</p>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="page section">
+
+<div class="form-container">
+
+<h2>📝 Create Account</h2>
+
+<form onsubmit="register(event)">
+
+<div class="form-group">
+<label>Full Name</label>
+<input required>
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" required>
+</div>
+
+<div class="form-group">
+<label>Phone</label>
+<input required>
+</div>
+
+<div class="form-group">
+<label>Password</label>
+<input type="password" required>
+</div>
+
+<button class="btn btn-success">
+Register
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>⚙️ Administrator Panel</h2>
+
+<p>Manage rooms, prices, bookings and website information</p>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h2>4</h2>
+<p>Room Types</p>
+</div>
+
+<div class="stat">
+<h2>65</h2>
+<p>Available Rooms</p>
+</div>
+
+<div class="stat">
+<h2>28</h2>
+<p>Active Bookings</p>
+</div>
+
+<div class="stat">
+<h2>145</h2>
+<p>Registered Users</p>
+</div>
+
+</div>
+
+
+<h2 style="color:#142b4a;margin:40px 0 20px;">
+Manage Room Quantity & Price
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+<th>Room Type</th>
+<th>Quantity</th>
+<th>Price / Night</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>Standard Room</td>
+<td>
+<input type="number"
+value="30"
+style="width:80px;padding:8px;">
+</td>
+<td>
+₹ <input type="number"
+value="2500"
+style="width:100px;padding:8px;">
+</td>
+<td>
+<button class="btn btn-success"
+onclick="saveRoom()">
+Save
+</button>
+</td>
+</tr>
+
+<tr>
+<td>Deluxe Room</td>
+<td>
+<input type="number"
+value="20"
+style="width:80px;padding:8px;">
+</td>
+<td>
+₹ <input type="number"
+value="4000"
+style="width:100px;padding:8px;">
+</td>
+<td>
+<button class="btn btn-success"
+onclick="saveRoom()">
+Save
+</button>
+</td>
+</tr>
+
+<tr>
+<td>Luxury Suite</td>
+<td>
+<input type="number"
+value="10"
+style="width:80px;padding:8px;">
+</td>
+<td>
+₹ <input type="number"
+value="7500"
+style="width:100px;padding:8px;">
+</td>
+<td>
+<button class="btn btn-success"
+onclick="saveRoom()">
+Save
+</button>
+</td>
+</tr>
+
+<tr>
+<td>Family Room</td>
+<td>
+<input type="number"
+value="15"
+style="width:80px;padding:8px;">
+</td>
+<td>
+₹ <input type="number"
+value="5500"
+style="width:100px;padding:8px;">
+</td>
+<td>
+<button class="btn btn-success"
+onclick="saveRoom()">
+Save
+</button>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+
+<h2 style="color:#142b4a;margin:40px 0 20px;">
+Manage Bookings
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+<th>Booking ID</th>
+<th>Customer</th>
+<th>Room</th>
+<th>Date</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>#GS1001</td>
+<td>John Doe</td>
+<td>Deluxe</td>
+<td>20-Aug-2026</td>
+<td>Confirmed</td>
+<td>
+<button class="btn btn-dark"
+onclick="adminModify()">
+Modify
+</button>
+
+<button class="btn btn-danger"
+onclick="adminCancel()">
+Cancel
+</button>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="card"
+style="margin-top:40px;">
+
+<h3>Website Content Management</h3>
+
+<p>
+Administrators can modify room information,
+About Us, Contact Us, Customer Service Q&A,
+Local Travel Guide and Privacy Policy.
+</p>
+
+<button class="btn btn-dark"
+onclick="editContent()">
+Edit Static Pages
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>About Us</h2>
+
+<p>Your comfortable stay is our priority</p>
+
+</div>
+
+<div class="card">
+
+<h3>About GrandStay Hotel</h3>
+
+<p>
+GrandStay Hotel provides comfortable accommodation,
+modern facilities and quality customer service.
+Our online booking platform makes it easy for guests
+to search, compare and reserve rooms from anywhere.
+</p>
+
+</div>
+
+<br>
+
+<div class="section-title">
+
+<h2>Customer Service Q&A</h2>
+
+</div>
+
+<div class="card-grid">
+
+<div class="card">
+
+<h3>Can I cancel my booking?</h3>
+
+<p>
+Yes. Bookings can be cancelled up to
+3 days before the arrival date.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Can I modify my booking?</h3>
+
+<p>
+Yes. Booking details can be modified
+up to 3 days before arrival.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>What payment methods are supported?</h3>
+
+<p>
+Credit cards, debit cards, UPI and
+online banking are supported.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact" class="page section">
+
+<div class="form-container">
+
+<h2>📞 Contact Us</h2>
+
+<form onsubmit="contact(event)">
+
+<div class="form-group">
+<label>Name</label>
+<input required>
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" required>
+</div>
+
+<div class="form-group">
+<label>Message</label>
+<textarea required></textarea>
+</div>
+
+<button class="btn btn-dark">
+Send Message
+</button>
+
+</form>
+
+<br>
+
+<p>
+📍 Chennai, Tamil Nadu, India
+</p>
+
+<p>
+📞 +91 98765 43210
+</p>
+
+<p>
+✉️ support@grandstay.com
+</p>
+
+</div>
+
+</section>
+
+
+<!-- REVIEWS -->
+
+<section class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Guest Reviews</h2>
+
+<p>What our customers say</p>
+
+</div>
+
+<div class="card-grid">
+
+<div class="card review">
+
+<h3>★★★★★</h3>
+
+<p>
+"Excellent rooms and very smooth booking experience."
+</p>
+
+<strong>— Priya</strong>
+
+</div>
+
+<div class="card review">
+
+<h3>★★★★☆</h3>
+
+<p>
+"Clean rooms, friendly staff and good facilities."
+</p>
+
+<strong>— Rahul</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<h3>🏨 GrandStay Hotel</h3>
+
+<p>
+Comfort • Quality • Convenience
+</p>
+
+<p>
+© 2026 GrandStay Hotel. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<script>
+
+/* PAGE NAVIGATION */
+
+function showPage(page){
+
+    document.querySelectorAll(".page")
+    .forEach(function(p){
+        p.classList.remove("active");
+    });
+
+    document.getElementById(page)
+    .classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* SEARCH */
+
+function searchHotel(){
+
+    let destination =
+    document.getElementById("destination").value;
+
+    let checkin =
+    document.getElementById("checkin").value;
+
+    let checkout =
+    document.getElementById("checkout").value;
+
+    if(destination==="" ||
+       checkin==="" ||
+       checkout===""){
+
+        alert("Please enter destination and dates.");
+        return;
+    }
+
+    alert(
+        "Rooms available in " +
+        destination +
+        " for your selected dates."
+    );
+
+    showPage("rooms");
+}
+
+
+/* BOOK ROOM */
+
+function bookRoom(room,price){
+
+    document.getElementById("selectedRoom")
+    .value = room + " - ₹" + price + "/night";
+
+    showPage("booking");
+}
+
+
+/* CONFIRM BOOKING */
+
+function confirmBooking(event){
+
+    event.preventDefault();
+
+    alert(
+        "Booking confirmed successfully!\n\n" +
+        "Confirmation email has been sent to your registered email."
+    );
+
+    showPage("bookings");
+}
+
+
+/* MODIFY BOOKING */
+
+function modifyBooking(){
+
+    alert(
+        "Booking modification is allowed up to 3 days before arrival."
+    );
+}
+
+
+/* CANCEL BOOKING */
+
+function cancelBooking(){
+
+    let confirmCancel =
+    confirm("Are you sure you want to cancel this booking?");
+
+    if(confirmCancel){
+
+        alert(
+            "Booking cancelled successfully."
+        );
+    }
+}
+
+
+/* LOGIN */
+
+function login(event){
+
+    event.preventDefault();
+
+    alert(
+        "Login successful!"
+    );
+
+    showPage("profile");
+}
+
+
+/* REGISTER */
+
+function register(event){
+
+    event.preventDefault();
+
+    alert(
+        "Account created successfully!"
+    );
+
+    showPage("login");
+}
+
+
+/* PROFILE */
+
+function updateProfile(){
+
+    alert(
+        "Profile updated successfully!"
+    );
+}
+
+
+/* ADMIN */
+
+function saveRoom(){
+
+    alert(
+        "Room quantity and price updated successfully."
+    );
+}
+
+
+function adminModify(){
+
+    alert(
+        "Booking details can now be modified by the administrator."
+    );
+}
+
+
+function adminCancel(){
+
+    if(confirm("Cancel this booking?")){
+
+        alert(
+            "Booking cancelled by administrator."
+        );
+    }
+}
+
+
+function editContent(){
+
+    alert(
+        "Static page content management opened.\n\n" +
+        "Admin can modify Room Information, About Us, " +
+        "Contact Us, FAQ, Travel Guide and Privacy Policy."
+    );
+}
+
+
+/* CONTACT */
+
+function contact(event){
+
+    event.preventDefault();
+
+    alert(
+        "Thank you! Your message has been submitted successfully."
+    );
+
+    event.target.reset();
+}
+
+
+/* SET MINIMUM DATE */
+
+let today =
+new Date().toISOString().split("T")[0];
+
+document.querySelectorAll(
+'input[type="date"]'
+).forEach(function(input){
+
+    input.min = today;
+
+});
+
+</script>
+
+</body>
+</html>
