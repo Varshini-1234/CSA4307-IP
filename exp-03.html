@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BusGo - Online Bus Ticket Booking</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#1f2937;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:#12355b;
+    color:white;
+    padding:17px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ffb703;
+}
+
+.nav-links{
+    display:flex;
+    gap:20px;
+    list-style:none;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#ffb703;
+}
+
+/* HERO */
+
+.hero{
+    min-height:480px;
+    background:linear-gradient(135deg,#12355b,#246fa8);
+    color:white;
+    display:flex;
+    align-items:center;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    max-width:650px;
+    line-height:1.7;
+    font-size:18px;
+    color:#e5edf5;
+}
+
+/* BUTTONS */
+
+.btn{
+    border:0;
+    padding:12px 22px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+    margin-top:15px;
+}
+
+.btn-primary{
+    background:#ffb703;
+    color:#12355b;
+}
+
+.btn-dark{
+    background:#12355b;
+    color:white;
+}
+
+.btn-success{
+    background:#198754;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-warning{
+    background:#f59e0b;
+    color:white;
+}
+
+/* SEARCH */
+
+.search-panel{
+    width:88%;
+    max-width:1100px;
+    margin:-45px auto 40px;
+    background:white;
+    padding:25px;
+    position:relative;
+    border-radius:10px;
+    box-shadow:0 5px 25px rgba(0,0,0,.12);
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:15px;
+}
+
+.input-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:7px;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+}
+
+/* SECTIONS */
+
+.section{
+    padding:55px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.section-title h2{
+    color:#12355b;
+    font-size:30px;
+}
+
+.section-title p{
+    color:#6b7280;
+    margin-top:8px;
+}
+
+/* CARDS */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.card h3{
+    color:#12355b;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.bus-icon{
+    height:140px;
+    background:#eaf2f9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:60px;
+    border-radius:8px;
+    margin-bottom:18px;
+}
+
+/* FORM */
+
+.form-container{
+    max-width:550px;
+    margin:45px auto;
+    background:white;
+    padding:35px;
+    border-radius:10px;
+    box-shadow:0 3px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    color:#12355b;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+}
+
+.form-group textarea{
+    min-height:100px;
+}
+
+/* TABLE */
+
+.table-container{
+    overflow-x:auto;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:14px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+}
+
+th{
+    background:#12355b;
+    color:white;
+}
+
+/* BADGES */
+
+.badge{
+    padding:6px 10px;
+    border-radius:15px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.available{
+    background:#d1fae5;
+    color:#047857;
+}
+
+.booked{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+/* SEATS */
+
+.seat-grid{
+    display:grid;
+    grid-template-columns:repeat(4,60px);
+    gap:12px;
+    margin:25px 0;
+}
+
+.seat{
+    width:55px;
+    height:45px;
+    border:0;
+    border-radius:6px;
+    background:#d1fae5;
+    color:#065f46;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.seat.selected{
+    background:#ffb703;
+    color:#12355b;
+}
+
+.seat.occupied{
+    background:#dc3545;
+    color:white;
+    cursor:not-allowed;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.stat h2{
+    color:#12355b;
+    font-size:30px;
+}
+
+.stat p{
+    color:#6b7280;
+    margin-top:7px;
+}
+
+/* COMMENTS */
+
+.comment{
+    border-left:4px solid #ffb703;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0c2844;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:50px;
+}
+
+footer p{
+    color:#cbd5e1;
+    margin-top:7px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+    .seat-grid{
+        grid-template-columns:repeat(4,50px);
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+<div class="logo">
+🚌 Bus<span>Go</span>
+</div>
+
+<ul class="nav-links">
+
+<li>
+<a onclick="showPage('home')">Home</a>
+</li>
+
+<li>
+<a onclick="showPage('buses')">Search Buses</a>
+</li>
+
+<li>
+<a onclick="showPage('bookings')">My Bookings</a>
+</li>
+
+<li>
+<a onclick="showPage('comments')">Comments</a>
+</li>
+
+<li>
+<a onclick="showPage('admin')">Admin</a>
+</li>
+
+<li>
+<a onclick="showPage('login')">Login</a>
+</li>
+
+</ul>
+
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>Book Your Bus Journey Easily</h1>
+
+<p>
+Search buses, select your preferred seats,
+enter passenger details and book your ticket
+quickly and securely.
+</p>
+
+<button class="btn btn-primary"
+onclick="showPage('buses')">
+
+Search Buses
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SEARCH PANEL -->
+
+<div class="search-panel">
+
+<h2 style="color:#12355b;margin-bottom:20px;">
+Search Bus
+</h2>
+
+<div class="search-grid">
+
+<div class="input-group">
+
+<label>From</label>
+
+<input
+id="from"
+placeholder="Departure city">
+
+</div>
+
+
+<div class="input-group">
+
+<label>To</label>
+
+<input
+id="to"
+placeholder="Destination city">
+
+</div>
+
+
+<div class="input-group">
+
+<label>Journey Date</label>
+
+<input
+type="date"
+id="journeyDate">
+
+</div>
+
+
+<div class="input-group">
+
+<label>Bus Type</label>
+
+<select id="busType">
+
+<option>All Types</option>
+
+<option>Volvo</option>
+
+<option>Sleeper</option>
+
+<option>AC Coach</option>
+
+<option>Non-AC Coach</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button class="btn btn-dark"
+onclick="searchBus()">
+
+Search Available Buses
+
+</button>
+
+</div>
+
+
+<!-- FEATURES -->
+
+<div class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Why Use BusGo?</h2>
+
+<p>Simple, secure and convenient bus booking</p>
+
+</div>
+
+
+<div class="card-grid">
+
+<div class="card">
+
+<h3>🔎 Easy Search</h3>
+
+<p>
+Search buses by route, date and bus type.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>💺 Seat Selection</h3>
+
+<p>
+Choose your preferred available seat.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>💳 Secure Payment</h3>
+
+<p>
+Complete your booking using secure online payment.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>📱 Mobile Responsive</h3>
+
+<p>
+Use the booking system on desktop, tablet or mobile.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BUS LIST ================= -->
+
+<section id="buses" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Available Buses</h2>
+
+<p>Select a bus and choose your seat</p>
+
+</div>
+
+
+<div class="card-grid">
+
+
+<!-- BUS 1 -->
+
+<div class="card">
+
+<div class="bus-icon">
+🚌
+</div>
+
+<h3>Chennai Express</h3>
+
+<p>
+Chennai → Bangalore
+</p>
+
+<p>
+Departure: <strong>08:00 AM</strong>
+</p>
+
+<p>
+Arrival: <strong>02:00 PM</strong>
+</p>
+
+<p>
+Bus Type: Volvo AC
+</p>
+
+<p>
+Available Seats: <strong>18</strong>
+</p>
+
+<h3 style="margin-top:12px;">
+₹850
+</h3>
+
+<button class="btn btn-dark"
+onclick="selectBus('Chennai Express','850')">
+
+Select Seats
+
+</button>
+
+</div>
+
+
+<!-- BUS 2 -->
+
+<div class="card">
+
+<div class="bus-icon">
+🚍
+</div>
+
+<h3>South Travels</h3>
+
+<p>
+Chennai → Coimbatore
+</p>
+
+<p>
+Departure: <strong>09:30 AM</strong>
+</p>
+
+<p>
+Arrival: <strong>04:00 PM</strong>
+</p>
+
+<p>
+Bus Type: Sleeper Coach
+</p>
+
+<p>
+Available Seats: <strong>12</strong>
+</p>
+
+<h3 style="margin-top:12px;">
+₹750
+</h3>
+
+<button class="btn btn-dark"
+onclick="selectBus('South Travels','750')">
+
+Select Seats
+
+</button>
+
+</div>
+
+
+<!-- BUS 3 -->
+
+<div class="card">
+
+<div class="bus-icon">
+🚎
+</div>
+
+<h3>Green Line Travels</h3>
+
+<p>
+Bangalore → Hyderabad
+</p>
+
+<p>
+Departure: <strong>07:00 PM</strong>
+</p>
+
+<p>
+Arrival: <strong>07:00 AM</strong>
+</p>
+
+<p>
+Bus Type: AC Sleeper
+</p>
+
+<p>
+Available Seats: <strong>25</strong>
+</p>
+
+<h3 style="margin-top:12px;">
+₹1200
+</h3>
+
+<button class="btn btn-dark"
+onclick="selectBus('Green Line Travels','1200')">
+
+Select Seats
+
+</button>
+
+</div>
+
+
+<!-- BUS 4 -->
+
+<div class="card">
+
+<div class="bus-icon">
+🚌
+</div>
+
+<h3>Royal Coach</h3>
+
+<p>
+Chennai → Madurai
+</p>
+
+<p>
+Departure: <strong>10:00 PM</strong>
+</p>
+
+<p>
+Arrival: <strong>06:00 AM</strong>
+</p>
+
+<p>
+Bus Type: Non-AC Coach
+</p>
+
+<p>
+Available Seats: <strong>30</strong>
+</p>
+
+<h3 style="margin-top:12px;">
+₹600
+</h3>
+
+<button class="btn btn-dark"
+onclick="selectBus('Royal Coach','600')">
+
+Select Seats
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SEAT SELECTION ================= -->
+
+<section id="seats" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>💺 Select Your Seat</h2>
+
+<p id="selectedBusText">
+Choose your preferred seat
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Seat Layout</h3>
+
+<p>
+🟢 Available &nbsp;&nbsp;
+🟡 Selected &nbsp;&nbsp;
+🔴 Occupied
+</p>
+
+
+<div class="seat-grid">
+
+<button class="seat"
+onclick="selectSeat(this)">
+1
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+2
+</button>
+
+<button class="seat occupied">
+3
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+4
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+5
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+6
+</button>
+
+<button class="seat occupied">
+7
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+8
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+9
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+10
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+11
+</button>
+
+<button class="seat occupied">
+12
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+13
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+14
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+15
+</button>
+
+<button class="seat"
+onclick="selectSeat(this)">
+16
+</button>
+
+</div>
+
+
+<p>
+Selected Seat:
+<strong id="seatNumber">
+None
+</strong>
+</p>
+
+
+<button class="btn btn-primary"
+onclick="continueBooking()">
+
+Continue
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PASSENGER ================= -->
+
+<section id="passenger" class="page section">
+
+<div class="form-container">
+
+<h2>Passenger Details</h2>
+
+<form onsubmit="goPayment(event)">
+
+<div class="form-group">
+
+<label>Passenger Name</label>
+
+<input
+id="passengerName"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Age</label>
+
+<input
+type="number"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Gender</label>
+
+<select required>
+
+<option>Male</option>
+
+<option>Female</option>
+
+<option>Other</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Mobile Number</label>
+
+<input
+type="tel"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+required>
+
+</div>
+
+
+<button class="btn btn-success">
+
+Continue to Payment
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= PAYMENT ================= -->
+
+<section id="payment" class="page section">
+
+<div class="form-container">
+
+<h2>💳 Secure Payment</h2>
+
+<p style="text-align:center;margin-bottom:25px;">
+Complete payment to confirm your ticket.
+</p>
+
+
+<div class="form-group">
+
+<label>Payment Method</label>
+
+<select>
+
+<option>UPI</option>
+
+<option>Credit Card</option>
+
+<option>Debit Card</option>
+
+<option>Net Banking</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Card / UPI Details</label>
+
+<input
+placeholder="Enter payment details">
+
+</div>
+
+
+<div class="card">
+
+<h3>Booking Summary</h3>
+
+<p>Bus: <strong id="paymentBus">
+Chennai Express
+</strong></p>
+
+<p>Seat: <strong id="paymentSeat">
+1
+</strong></p>
+
+<p>Amount: <strong>
+₹850
+</strong></p>
+
+</div>
+
+
+<button class="btn btn-success"
+onclick="completePayment()">
+
+Pay & Confirm Ticket
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login" class="page section">
+
+<div class="form-container">
+
+<h2>🔐 User Login</h2>
+
+<form onsubmit="login(event)">
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+required
+placeholder="Enter email">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+type="password"
+required
+placeholder="Enter password">
+
+</div>
+
+
+<button class="btn btn-dark">
+
+Login
+
+</button>
+
+</form>
+
+
+<p style="text-align:center;margin-top:20px;">
+
+New user?
+
+<a href="#"
+onclick="showPage('register')">
+
+Register
+
+</a>
+
+</p>
+
+
+<p style="text-align:center;margin-top:12px;">
+
+<a href="#"
+onclick="forgotPassword()">
+
+Forgot Password?
+
+</a>
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= REGISTER ================= -->
+
+<section id="register" class="page section">
+
+<div class="form-container">
+
+<h2>📝 User Registration</h2>
+
+<form onsubmit="register(event)">
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email" required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Phone Number</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input type="password" required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Confirm Password</label>
+
+<input type="password" required>
+
+</div>
+
+
+<button class="btn btn-success">
+
+Create Account
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= BOOKINGS ================= -->
+
+<section id="bookings" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>My Booking History</h2>
+
+<p>View and manage your bus tickets</p>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Booking ID</th>
+<th>Bus</th>
+<th>Route</th>
+<th>Date</th>
+<th>Seat</th>
+<th>Amount</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+
+<tr>
+
+<td>#BG1001</td>
+
+<td>Chennai Express</td>
+
+<td>Chennai → Bangalore</td>
+
+<td>15-Aug-2026</td>
+
+<td>5</td>
+
+<td>₹850</td>
+
+<td>
+
+<span class="badge available">
+Confirmed
+</span>
+
+</td>
+
+<td>
+
+<button class="btn btn-danger"
+onclick="cancelTicket()">
+
+Cancel
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>#BG1002</td>
+
+<td>Royal Coach</td>
+
+<td>Chennai → Madurai</td>
+
+<td>05-Jul-2026</td>
+
+<td>8</td>
+
+<td>₹600</td>
+
+<td>
+Completed
+</td>
+
+<td>
+Completed
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= COMMENTS ================= -->
+
+<section id="comments" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>💬 Bus Comments & Reviews</h2>
+
+<p>Share your experience</p>
+
+</div>
+
+
+<div class="form-container">
+
+<form onsubmit="postComment(event)">
+
+<div class="form-group">
+
+<label>Select Bus</label>
+
+<select>
+
+<option>Chennai Express</option>
+
+<option>South Travels</option>
+
+<option>Green Line Travels</option>
+
+<option>Royal Coach</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Rating</label>
+
+<select>
+
+<option>★★★★★</option>
+
+<option>★★★★☆</option>
+
+<option>★★★☆☆</option>
+
+<option>★★☆☆☆</option>
+
+<option>★☆☆☆☆</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Your Comment</label>
+
+<textarea
+placeholder="Write your review..."
+required>
+</textarea>
+
+</div>
+
+
+<button class="btn btn-dark">
+
+Post Comment
+
+</button>
+
+</form>
+
+</div>
+
+
+<div class="card-grid">
+
+<div class="card comment">
+
+<h3>★★★★★</h3>
+
+<p>
+"Very comfortable journey and excellent service."
+</p>
+
+<strong>— Priya</strong>
+
+</div>
+
+
+<div class="card comment">
+
+<h3>★★★★☆</h3>
+
+<p>
+"The bus was clean and reached on time."
+</p>
+
+<strong>— Rahul</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section id="admin" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>⚙️ Administrator Dashboard</h2>
+
+<p>
+Manage buses, users, schedules, comments and reports
+</p>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<h2>85</h2>
+
+<p>Total Buses</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>1,250</h2>
+
+<p>Registered Users</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>320</h2>
+
+<p>Today's Bookings</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>₹4.5L</h2>
+
+<p>Revenue</p>
+
+</div>
+
+</div>
+
+
+<!-- ADD BUS -->
+
+<div class="form-container">
+
+<h2>➕ Add / Update Bus</h2>
+
+<form onsubmit="saveBus(event)">
+
+<div class="form-group">
+
+<label>Bus Name</label>
+
+<input
+placeholder="Bus name"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Bus Category</label>
+
+<select>
+
+<option>Volvo</option>
+
+<option>Sleeper Coach</option>
+
+<option>AC Coach</option>
+
+<option>Non-AC Coach</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>From</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>To</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Departure Time</label>
+
+<input type="time">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Available Seats</label>
+
+<input type="number"
+value="40">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Ticket Price</label>
+
+<input type="number"
+placeholder="₹">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Description</label>
+
+<textarea
+placeholder="Bus description">
+</textarea>
+
+</div>
+
+
+<button class="btn btn-success">
+
+Save Bus Information
+
+</button>
+
+</form>
+
+</div>
+
+
+<!-- BUS MANAGEMENT -->
+
+<h2 style="color:#12355b;margin:40px 0 20px;">
+
+Bus Information
+
+</h2>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Bus</th>
+<th>Category</th>
+<th>Route</th>
+<th>Seats</th>
+<th>Price</th>
+<th>Action</th>
+
+</tr>
+
+
+<tr>
+
+<td>Chennai Express</td>
+
+<td>Volvo</td>
+
+<td>Chennai → Bangalore</td>
+
+<td>18</td>
+
+<td>₹850</td>
+
+<td>
+
+<button class="btn btn-dark"
+onclick="editBus()">
+
+Edit
+
+</button>
+
+<button class="btn btn-danger"
+onclick="deleteBus()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>South Travels</td>
+
+<td>Sleeper</td>
+
+<td>Chennai → Coimbatore</td>
+
+<td>12</td>
+
+<td>₹750</td>
+
+<td>
+
+<button class="btn btn-dark"
+onclick="editBus()">
+
+Edit
+
+</button>
+
+<button class="btn btn-danger"
+onclick="deleteBus()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- USERS -->
+
+<h2 style="color:#12355b;margin:40px 0 20px;">
+
+Registered Users
+
+</h2>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>User ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+
+<tr>
+
+<td>U001</td>
+<td>Rahul Kumar</td>
+<td>rahul@gmail.com</td>
+<td>Active</td>
+
+<td>
+
+<button class="btn btn-danger"
+onclick="manageUser()">
+
+Manage
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>U002</td>
+<td>Priya Sharma</td>
+<td>priya@gmail.com</td>
+<td>Active</td>
+
+<td>
+
+<button class="btn btn-danger"
+onclick="manageUser()">
+
+Manage
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- REPORT -->
+
+<div class="card"
+style="margin-top:40px;">
+
+<h3>📊 Report Generation</h3>
+
+<p>
+Generate booking, user, bus and revenue reports.
+</p>
+
+<button class="btn btn-primary"
+onclick="generateReport()">
+
+Generate Report
+
+</button>
+
+</div>
+
+
+<!-- NEWS -->
+
+<div class="card"
+style="margin-top:25px;">
+
+<h3>📰 Manage News</h3>
+
+<p>
+Administrators can publish and manage announcements
+and travel-related news.
+</p>
+
+<button class="btn btn-dark"
+onclick="manageNews()">
+
+Manage News
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<h3>🚌 BusGo Online Ticket Booking</h3>
+
+<p>
+Safe • Fast • Convenient
+</p>
+
+<p>
+© 2026 BusGo. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+let selectedBus = "";
+let selectedPrice = "";
+let selectedSeat = "";
+
+
+/* PAGE NAVIGATION */
+
+function showPage(page){
+
+    document.querySelectorAll(".page")
+    .forEach(function(p){
+
+        p.classList.remove("active");
+
+    });
+
+    document.getElementById(page)
+    .classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* BUS SEARCH */
+
+function searchBus(){
+
+    let from =
+    document.getElementById("from").value;
+
+    let to =
+    document.getElementById("to").value;
+
+    let date =
+    document.getElementById("journeyDate").value;
+
+    if(from === "" ||
+       to === "" ||
+       date === ""){
+
+        alert(
+            "Please enter From, To and Journey Date."
+        );
+
+        return;
+    }
+
+    alert(
+        "Buses found for " +
+        from +
+        " to " +
+        to
+    );
+
+    showPage("buses");
+}
+
+
+/* SELECT BUS */
+
+function selectBus(name,price){
+
+    selectedBus = name;
+    selectedPrice = price;
+
+    document.getElementById(
+        "selectedBusText"
+    ).innerHTML =
+    name +
+    " | Ticket Price: ₹" +
+    price;
+
+    showPage("seats");
+}
+
+
+/* SELECT SEAT */
+
+function selectSeat(button){
+
+    document.querySelectorAll(".seat")
+    .forEach(function(seat){
+
+        seat.classList.remove("selected");
+
+    });
+
+    button.classList.add("selected");
+
+    selectedSeat = button.innerText;
+
+    document.getElementById(
+        "seatNumber"
+    ).innerText = selectedSeat;
+}
+
+
+/* CONTINUE */
+
+function continueBooking(){
+
+    if(selectedSeat === ""){
+
+        alert(
+            "Please select a seat first."
+        );
+
+        return;
+    }
+
+    document.getElementById(
+        "paymentBus"
+    ).innerText = selectedBus;
+
+    document.getElementById(
+        "paymentSeat"
+    ).innerText = selectedSeat;
+
+    showPage("passenger");
+}
+
+
+/* PASSENGER */
+
+function goPayment(event){
+
+    event.preventDefault();
+
+    showPage("payment");
+}
+
+
+/* PAYMENT */
+
+function completePayment(){
+
+    alert(
+        "Payment successful!\n\n" +
+        "Ticket booked successfully.\n" +
+        "Confirmation email has been sent."
+    );
+
+    showPage("bookings");
+}
+
+
+/* LOGIN */
+
+function login(event){
+
+    event.preventDefault();
+
+    alert(
+        "Login successful!"
+    );
+
+    showPage("bookings");
+}
+
+
+/* REGISTER */
+
+function register(event){
+
+    event.preventDefault();
+
+    alert(
+        "Registration successful!"
+    );
+
+    showPage("login");
+}
+
+
+/* FORGOT PASSWORD */
+
+function forgotPassword(){
+
+    let email =
+    prompt("Enter your registered email:");
+
+    if(email){
+
+        alert(
+            "Password reset link has been sent to " +
+            email
+        );
+
+    }
+}
+
+
+/* CANCEL TICKET */
+
+function cancelTicket(){
+
+    let result =
+    confirm(
+        "Are you sure you want to cancel this ticket?"
+    );
+
+    if(result){
+
+        alert(
+            "Ticket cancelled successfully."
+        );
+
+    }
+}
+
+
+/* COMMENTS */
+
+function postComment(event){
+
+    event.preventDefault();
+
+    alert(
+        "Your comment has been posted successfully!"
+    );
+
+    event.target.reset();
+}
+
+
+/* ADMIN BUS */
+
+function saveBus(event){
+
+    event.preventDefault();
+
+    alert(
+        "Bus information saved successfully."
+    );
+
+    event.target.reset();
+}
+
+
+function editBus(){
+
+    alert(
+        "Bus information can now be updated."
+    );
+}
+
+
+function deleteBus(){
+
+    let result =
+    confirm(
+        "Are you sure you want to delete this bus?"
+    );
+
+    if(result){
+
+        alert(
+            "Bus deleted successfully."
+        );
+
+    }
+}
+
+
+/* USERS */
+
+function manageUser(){
+
+    alert(
+        "User management options opened."
+    );
+}
+
+
+/* REPORT */
+
+function generateReport(){
+
+    alert(
+        "Report generated successfully!\n\n" +
+        "Booking Report\n" +
+        "User Report\n" +
+        "Bus Report\n" +
+        "Revenue Report"
+    );
+}
+
+
+/* NEWS */
+
+function manageNews(){
+
+    alert(
+        "News management panel opened."
+    );
+}
+
+
+/* SET MINIMUM DATE */
+
+let today =
+new Date().toISOString().split("T")[0];
+
+document.querySelectorAll(
+'input[type="date"]'
+)
+.forEach(function(input){
+
+    input.min = today;
+
+});
+
+</script>
+
+</body>
+</html>
