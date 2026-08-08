@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Management System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #173b6c;
+    color: white;
+    padding: 16px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #55c2ff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 22px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.nav-links a:hover {
+    color: #55c2ff;
+}
+
+/* COMMON */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.container {
+    width: 86%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section {
+    padding: 55px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    color: #173b6c;
+    font-size: 30px;
+}
+
+.section-title p {
+    color: #6b7280;
+    margin-top: 8px;
+}
+
+/* HERO */
+.hero {
+    min-height: 500px;
+    background: linear-gradient(135deg, #173b6c, #2563a6);
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    width: 86%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.hero h1 {
+    font-size: 48px;
+    max-width: 700px;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    font-size: 18px;
+    max-width: 650px;
+    line-height: 1.7;
+    color: #e5efff;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 22px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #55c2ff;
+    color: #08294f;
+}
+
+.btn-primary:hover {
+    background: #38b2ed;
+}
+
+.btn-dark {
+    background: #173b6c;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-success {
+    background: #198754;
+    color: white;
+}
+
+/* SEARCH */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+/* CARDS */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    color: #173b6c;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.book-card {
+    border-top: 4px solid #55c2ff;
+}
+
+.book-icon {
+    height: 120px;
+    background: #eaf5ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+}
+
+/* STATS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+}
+
+.stat h2 {
+    color: #173b6c;
+    font-size: 32px;
+}
+
+.stat p {
+    color: #6b7280;
+}
+
+/* FORMS */
+.form-container {
+    max-width: 550px;
+    margin: 40px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+}
+
+.form-container h2 {
+    color: #173b6c;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.form-container .btn {
+    width: 100%;
+}
+
+/* TABLE */
+.table-container {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    background: #173b6c;
+    color: white;
+}
+
+tr:hover {
+    background: #f8fafc;
+}
+
+/* BADGES */
+.badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.available {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.issued {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* DASHBOARD */
+.dashboard-header {
+    background: #173b6c;
+    color: white;
+    padding: 35px 0;
+}
+
+.dashboard-header h1 {
+    margin-bottom: 8px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin: 35px 0;
+}
+
+/* FOOTER */
+footer {
+    background: #102d52;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 6px;
+    color: #cbd5e1;
+}
+
+/* ALERT */
+.alert {
+    padding: 14px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: none;
+    background: #d1fae5;
+    color: #065f46;
+}
+
+/* RESPONSIVE */
+@media(max-width: 800px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .hero h1 {
+        font-size: 35px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">📚 Library<span>Hub</span></div>
+
+    <ul class="nav-links">
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('books')">Books</a></li>
+        <li><a onclick="showPage('materials')">Materials</a></li>
+        <li><a onclick="showPage('user')">My Dashboard</a></li>
+        <li><a onclick="showPage('admin')">Admin</a></li>
+        <li><a onclick="showPage('login')">Login</a></li>
+        <li><a onclick="showPage('contact')">Contact</a></li>
+    </ul>
+</nav>
+
+
+<!-- ================= HOME ================= -->
+<section id="home" class="page active">
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Smart Library Management System</h1>
+
+            <p>
+                A modern digital library platform that helps students
+                search books, manage borrowing history, access study materials
+                and check fines, while enabling librarians to efficiently
+                manage books and users.
+            </p>
+
+            <button class="btn btn-primary"
+                    onclick="showPage('books')">
+                Explore Books
+            </button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Library Overview</h2>
+                <p>Everything you need to manage your library</p>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <h2>1,250+</h2>
+                    <p>Total Books</p>
+                </div>
+
+                <div class="stat">
+                    <h2>850</h2>
+                    <p>Registered Students</p>
+                </div>
+
+                <div class="stat">
+                    <h2>320</h2>
+                    <p>Books Issued</p>
+                </div>
+
+                <div class="stat">
+                    <h2>45</h2>
+                    <p>Books Available</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Key Features</h2>
+            </div>
+
+            <div class="card-grid">
+
+                <div class="card">
+                    <h3>🔎 Search Books</h3>
+                    <p>
+                        Quickly search for books by title, author or category.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>📖 Borrow History</h3>
+                    <p>
+                        Students can track issue dates and expected return dates.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>💰 Fine Management</h3>
+                    <p>
+                        View and manage fines for overdue books.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>📁 Study Materials</h3>
+                    <p>
+                        Search and download semester-wise study materials.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ================= BOOKS ================= -->
+<section id="books" class="page section">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Library Book Catalog</h2>
+            <p>Search and explore available books</p>
+        </div>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="bookSearch"
+                placeholder="Search by title, author or category..."
+                onkeyup="searchBooks()">
+
+            <button class="btn btn-dark"
+                    onclick="searchBooks()">
+                Search
+            </button>
+        </div>
+
+        <div class="card-grid" id="bookList">
+
+            <div class="card book-card">
+                <div class="book-icon">📘</div>
+                <h3>Data Structures</h3>
+                <p><strong>Author:</strong> Mark Allen</p>
+                <p><strong>Category:</strong> Computer Science</p>
+                <p>
+                    <span class="badge available">Available</span>
+                </p>
+                <button class="btn btn-dark"
+                        onclick="bookDetails('Data Structures')">
+                    View Details
+                </button>
+            </div>
+
+            <div class="card book-card">
+                <div class="book-icon">📗</div>
+                <h3>Operating Systems</h3>
+                <p><strong>Author:</strong> Abraham Silberschatz</p>
+                <p><strong>Category:</strong> Computer Science</p>
+                <p>
+                    <span class="badge available">Available</span>
+                </p>
+                <button class="btn btn-dark"
+                        onclick="bookDetails('Operating Systems')">
+                    View Details
+                </button>
+            </div>
+
+            <div class="card book-card">
+                <div class="book-icon">📕</div>
+                <h3>Database Management</h3>
+                <p><strong>Author:</strong> Korth</p>
+                <p><strong>Category:</strong> Database</p>
+                <p>
+                    <span class="badge issued">Issued</span>
+                </p>
+                <button class="btn btn-dark"
+                        onclick="bookDetails('Database Management')">
+                    View Details
+                </button>
+            </div>
+
+            <div class="card book-card">
+                <div class="book-icon">📙</div>
+                <h3>Computer Networks</h3>
+                <p><strong>Author:</strong> Andrew Tanenbaum</p>
+                <p><strong>Category:</strong> Networking</p>
+                <p>
+                    <span class="badge available">Available</span>
+                </p>
+                <button class="btn btn-dark"
+                        onclick="bookDetails('Computer Networks')">
+                    View Details
+                </button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>🔐 User Login</h2>
+
+        <div id="loginAlert" class="alert">
+            Login successful!
+        </div>
+
+        <form onsubmit="loginUser(event)">
+
+            <div class="form-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    placeholder="Enter your email"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    placeholder="Enter your password"
+                    required>
+            </div>
+
+            <button class="btn btn-dark">
+                Login
+            </button>
+
+        </form>
+
+        <p style="text-align:center; margin-top:20px;">
+            Don't have an account?
+            <a href="#" onclick="showPage('register')">
+                Register
+            </a>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= REGISTER ================= -->
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>👤 Student Registration</h2>
+
+        <form onsubmit="registerUser(event)">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input
+                    type="text"
+                    placeholder="Enter full name"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Student ID</label>
+                <input
+                    type="text"
+                    placeholder="Enter student ID"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    placeholder="Enter email"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    placeholder="Create password"
+                    required>
+            </div>
+
+            <button class="btn btn-dark">
+                Create Account
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ================= USER DASHBOARD ================= -->
+<section id="user" class="page">
+
+    <div class="dashboard-header">
+        <div class="container">
+            <h1>Student Dashboard</h1>
+            <p>Welcome back, Student</p>
+        </div>
+    </div>
+
+    <div class="container section">
+
+        <div class="dashboard-grid">
+
+            <div class="stat">
+                <h2>3</h2>
+                <p>Books Borrowed</p>
+            </div>
+
+            <div class="stat">
+                <h2>₹50</h2>
+                <p>Current Fine</p>
+            </div>
+
+            <div class="stat">
+                <h2>12</h2>
+                <p>Total Books Read</p>
+            </div>
+
+        </div>
+
+        <h2 style="color:#173b6c; margin-bottom:20px;">
+            My Borrow History
+        </h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+                    <th>Book Name</th>
+                    <th>Issue Date</th>
+                    <th>Expected Return</th>
+                    <th>Status</th>
+                </tr>
+
+                <tr>
+                    <td>Data Structures</td>
+                    <td>01-Aug-2026</td>
+                    <td>15-Aug-2026</td>
+                    <td>
+                        <span class="badge available">
+                            Active
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Operating Systems</td>
+                    <td>20-Jul-2026</td>
+                    <td>03-Aug-2026</td>
+                    <td>
+                        <span class="badge issued">
+                            Overdue
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Computer Networks</td>
+                    <td>10-Jul-2026</td>
+                    <td>24-Jul-2026</td>
+                    <td>
+                        Returned
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div class="card" style="margin-top:30px;">
+            <h3>💰 Fine Details</h3>
+            <p>Current outstanding fine: <strong>₹50</strong></p>
+            <button class="btn btn-success"
+                    onclick="alert('Fine payment feature selected.')">
+                Pay Fine
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ADMIN DASHBOARD ================= -->
+<section id="admin" class="page">
+
+    <div class="dashboard-header">
+        <div class="container">
+            <h1>📚 Librarian Admin Dashboard</h1>
+            <p>Manage books, students, issues, returns and fines</p>
+        </div>
+    </div>
+
+    <div class="container section">
+
+        <div class="dashboard-grid">
+
+            <div class="stat">
+                <h2>1250</h2>
+                <p>Total Books</p>
+            </div>
+
+            <div class="stat">
+                <h2>320</h2>
+                <p>Issued Books</p>
+            </div>
+
+            <div class="stat">
+                <h2>850</h2>
+                <p>Students</p>
+            </div>
+
+            <div class="stat">
+                <h2>₹8,500</h2>
+                <p>Total Fines</p>
+            </div>
+
+        </div>
+
+
+        <!-- ADD BOOK -->
+
+        <div class="form-container">
+
+            <h2>➕ Add New Book</h2>
+
+            <form onsubmit="addBook(event)">
+
+                <div class="form-group">
+                    <label>Book Title</label>
+                    <input type="text"
+                           placeholder="Book title"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text"
+                           placeholder="Author name"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select>
+                        <option>Computer Science</option>
+                        <option>Database</option>
+                        <option>Networking</option>
+                        <option>Mathematics</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Year</label>
+                    <input type="number"
+                           placeholder="Publication year">
+                </div>
+
+                <button class="btn btn-success">
+                    Add Book
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ISSUE / RETURN -->
+
+        <h2 style="color:#173b6c; margin:40px 0 20px;">
+            Book Issue & Return Management
+        </h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+                    <th>Student</th>
+                    <th>Book</th>
+                    <th>Issue Date</th>
+                    <th>Expected Return</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+                <tr>
+                    <td>Rahul Kumar</td>
+                    <td>Data Structures</td>
+                    <td>01-Aug-2026</td>
+                    <td>15-Aug-2026</td>
+                    <td>
+                        <span class="badge available">
+                            Issued
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-success"
+                                onclick="returnBook(this)">
+                            Return
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Ananya Sharma</td>
+                    <td>Operating Systems</td>
+                    <td>20-Jul-2026</td>
+                    <td>03-Aug-2026</td>
+                    <td>
+                        <span class="badge issued">
+                            Overdue
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger"
+                                onclick="makeFine()">
+                            Make Fine
+                        </button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MATERIALS ================= -->
+<section id="materials" class="page section">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>📁 Study Materials</h2>
+            <p>Search materials by year and semester</p>
+        </div>
+
+        <div class="search-box">
+
+            <select id="year">
+                <option value="">Select Year</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+            </select>
+
+            <select id="semester">
+                <option value="">Select Semester</option>
+                <option>Semester 1</option>
+                <option>Semester 2</option>
+                <option>Semester 3</option>
+                <option>Semester 4</option>
+                <option>Semester 5</option>
+                <option>Semester 6</option>
+                <option>Semester 7</option>
+                <option>Semester 8</option>
+            </select>
+
+            <button class="btn btn-dark"
+                    onclick="searchMaterial()">
+                Search
+            </button>
+
+        </div>
+
+
+        <div class="card-grid">
+
+            <div class="card">
+                <h3>📄 Data Structures Notes</h3>
+                <p>3rd Year | Semester 5</p>
+                <button class="btn btn-primary"
+                        onclick="downloadMaterial('Data Structures')">
+                    Download
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>📄 Database Management Notes</h3>
+                <p>3rd Year | Semester 5</p>
+                <button class="btn btn-primary"
+                        onclick="downloadMaterial('DBMS')">
+                    Download
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>📄 Computer Networks Notes</h3>
+                <p>3rd Year | Semester 6</p>
+                <button class="btn btn-primary"
+                        onclick="downloadMaterial('Computer Networks')">
+                    Download
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>📄 Operating Systems Notes</h3>
+                <p>3rd Year | Semester 6</p>
+                <button class="btn btn-primary"
+                        onclick="downloadMaterial('Operating Systems')">
+                    Download
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="page section">
+
+    <div class="form-container">
+
+        <h2>📩 Contact Library</h2>
+
+        <form onsubmit="contactSubmit(event)">
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text"
+                       placeholder="Enter your name"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email"
+                       placeholder="Enter your email"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text"
+                       placeholder="Enter subject"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Message</label>
+                <textarea
+                    placeholder="Write your message..."
+                    required></textarea>
+            </div>
+
+            <button class="btn btn-dark">
+                Send Message
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <h3>📚 Library Management System</h3>
+
+    <p>
+        A digital solution for efficient library management.
+    </p>
+
+    <p>
+        © 2026 College Library. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+/* PAGE NAVIGATION */
+
+function showPage(pageId) {
+
+    const pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* BOOK SEARCH */
+
+function searchBooks() {
+
+    const search =
+        document.getElementById("bookSearch")
+        .value
+        .toLowerCase();
+
+    const books =
+        document.querySelectorAll(".book-card");
+
+    books.forEach(function(book) {
+
+        const text =
+            book.innerText.toLowerCase();
+
+        if(text.includes(search)) {
+            book.style.display = "block";
+        }
+        else {
+            book.style.display = "none";
+        }
+
+    });
+}
+
+
+/* BOOK DETAILS */
+
+function bookDetails(bookName) {
+
+    alert(
+        "Book Details\n\n" +
+        "Title: " + bookName +
+        "\nLibrary: College Central Library" +
+        "\nAvailability: Check with librarian"
+    );
+}
+
+
+/* LOGIN */
+
+function loginUser(event) {
+
+    event.preventDefault();
+
+    document.getElementById("loginAlert").style.display = "block";
+
+    setTimeout(function() {
+        showPage("user");
+    }, 1000);
+}
+
+
+/* REGISTER */
+
+function registerUser(event) {
+
+    event.preventDefault();
+
+    alert(
+        "Registration successful!\n" +
+        "Your library account has been created."
+    );
+
+    showPage("login");
+}
+
+
+/* ADD BOOK */
+
+function addBook(event) {
+
+    event.preventDefault();
+
+    alert(
+        "Book added successfully to the library inventory."
+    );
+
+    event.target.reset();
+}
+
+
+/* RETURN BOOK */
+
+function returnBook(button) {
+
+    const row = button.closest("tr");
+
+    row.cells[4].innerHTML =
+        '<span class="badge available">Returned</span>';
+
+    button.remove();
+
+    alert("Book returned successfully.");
+}
+
+
+/* FINE */
+
+function makeFine() {
+
+    alert(
+        "Fine generated successfully.\n" +
+        "Please update the student's fine record."
+    );
+}
+
+
+/* MATERIAL SEARCH */
+
+function searchMaterial() {
+
+    const year =
+        document.getElementById("year").value;
+
+    const semester =
+        document.getElementById("semester").value;
+
+    if(year === "" || semester === "") {
+
+        alert(
+            "Please select both Year and Semester."
+        );
+
+        return;
+    }
+
+    alert(
+        "Searching materials for " +
+        year + " - " + semester
+    );
+}
+
+
+/* DOWNLOAD */
+
+function downloadMaterial(name) {
+
+    alert(
+        "Downloading " + name +
+        " study material..."
+    );
+}
+
+
+/* CONTACT */
+
+function contactSubmit(event) {
+
+    event.preventDefault();
+
+    alert(
+        "Thank you for contacting the library.\n" +
+        "Your message has been submitted successfully."
+    );
+
+    event.target.reset();
+}
+
+</script>
+
+</body>
+</html>
