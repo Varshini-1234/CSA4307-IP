@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glow Beauty Salon - Appointment Booking</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#fff8fb;
+    color:#333;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:#8e2450;
+    color:white;
+    padding:16px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ffd4e3;
+}
+
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#ffd4e3;
+}
+
+/* HERO */
+
+.hero{
+    min-height:430px;
+    background:linear-gradient(135deg,#8e2450,#d86b91);
+    color:white;
+    display:flex;
+    align-items:center;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    max-width:680px;
+    line-height:1.7;
+    font-size:18px;
+}
+
+.btn{
+    border:none;
+    padding:11px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-primary{
+    background:#ffd1df;
+    color:#8e2450;
+}
+
+.btn-dark{
+    background:#8e2450;
+    color:white;
+}
+
+.btn-success{
+    background:#198754;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-warning{
+    background:#f59e0b;
+    color:white;
+}
+
+/* SEARCH */
+
+.search-box{
+    width:88%;
+    max-width:1100px;
+    margin:-45px auto 40px;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    position:relative;
+    box-shadow:0 5px 25px rgba(0,0,0,.15);
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.input-group label,
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.input-group input,
+.input-group select,
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+/* SECTIONS */
+
+.section{
+    padding:55px 0;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.section-title h2{
+    color:#8e2450;
+    font-size:30px;
+}
+
+.section-title p{
+    color:#777;
+    margin-top:8px;
+}
+
+/* CARDS */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.card h3{
+    color:#8e2450;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#666;
+    line-height:1.6;
+}
+
+.icon-box{
+    height:150px;
+    background:#ffe4ed;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+    margin-bottom:15px;
+}
+
+/* FORM */
+
+.form-container{
+    max-width:600px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 3px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    color:#8e2450;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+/* TABLE */
+
+.table-container{
+    overflow-x:auto;
+    background:white;
+    border-radius:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+
+th{
+    background:#8e2450;
+    color:white;
+}
+
+/* STATUS */
+
+.status{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:15px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.confirmed{
+    background:#d1fae5;
+    color:#047857;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.cancelled{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.stat{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.stat h2{
+    color:#8e2450;
+    font-size:30px;
+}
+
+.stat p{
+    color:#777;
+    margin-top:7px;
+}
+
+/* CALENDAR */
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px;
+    margin-top:20px;
+}
+
+.calendar div{
+    padding:15px 5px;
+    text-align:center;
+    border-radius:6px;
+    background:#fff0f5;
+    cursor:pointer;
+}
+
+.calendar .heading{
+    background:#8e2450;
+    color:white;
+    font-weight:bold;
+}
+
+.calendar .unavailable{
+    background:#ddd;
+    color:#999;
+    cursor:not-allowed;
+}
+
+.calendar .selected{
+    background:#d85b87;
+    color:white;
+}
+
+/* FOOTER */
+
+footer{
+    background:#4d122b;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:50px;
+}
+
+footer p{
+    color:#ddd;
+    margin-top:8px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+    .calendar div{
+        padding:10px 3px;
+        font-size:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+<div class="logo">
+💇 Glow<span>Beauty</span>
+</div>
+
+<ul class="nav-links">
+
+<li>
+<a onclick="showPage('home')">Home</a>
+</li>
+
+<li>
+<a onclick="showPage('services')">Services</a>
+</li>
+
+<li>
+<a onclick="showPage('stylists')">Stylists</a>
+</li>
+
+<li>
+<a onclick="showPage('booking')">Book Appointment</a>
+</li>
+
+<li>
+<a onclick="showPage('appointments')">My Appointments</a>
+</li>
+
+<li>
+<a onclick="showPage('login')">Login</a>
+</li>
+
+<li>
+<a onclick="showPage('admin')">Admin</a>
+</li>
+
+</ul>
+
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>Look Beautiful. Feel Confident. ✨</h1>
+
+<p>
+Discover professional beauty services and experienced
+stylists. Select your preferred service, stylist, date
+and time and book your appointment online.
+</p>
+
+<button class="btn btn-primary"
+onclick="showPage('booking')">
+
+Book Appointment
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<h2 style="color:#8e2450;margin-bottom:20px;">
+Find Your Beauty Service
+</h2>
+
+<div class="search-grid">
+
+<div class="input-group">
+
+<label>Service</label>
+
+<select id="searchService">
+
+<option>All Services</option>
+<option>Haircut</option>
+<option>Hair Styling</option>
+<option>Facial</option>
+<option>Manicure</option>
+<option>Pedicure</option>
+<option>Makeup</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label>Date</label>
+
+<input type="date" id="searchDate">
+
+</div>
+
+<div class="input-group">
+
+<label>Time</label>
+
+<select id="searchTime">
+
+<option>10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+<option>2:00 PM</option>
+<option>3:00 PM</option>
+<option>4:00 PM</option>
+<option>5:00 PM</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button class="btn btn-dark"
+onclick="searchAvailability()">
+
+Check Availability
+
+</button>
+
+</div>
+
+
+<div class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Our Popular Services</h2>
+
+<p>Professional beauty services for every occasion</p>
+
+</div>
+
+<div class="card-grid">
+
+<div class="card">
+
+<div class="icon-box">💇</div>
+
+<h3>Hair Styling</h3>
+
+<p>
+Professional haircut and styling by experienced
+beauty professionals.
+</p>
+
+<p><strong>₹500 onwards</strong></p>
+
+<button class="btn btn-dark"
+onclick="bookService('Hair Styling',500)">
+
+Book Now
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">💆</div>
+
+<h3>Facial</h3>
+
+<p>
+Relaxing facial treatment for healthy and glowing skin.
+</p>
+
+<p><strong>₹800 onwards</strong></p>
+
+<button class="btn btn-dark"
+onclick="bookService('Facial',800)">
+
+Book Now
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">💅</div>
+
+<h3>Manicure</h3>
+
+<p>
+Professional manicure treatment with beautiful finishing.
+</p>
+
+<p><strong>₹400 onwards</strong></p>
+
+<button class="btn btn-dark"
+onclick="bookService('Manicure',400)">
+
+Book Now
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">💄</div>
+
+<h3>Makeup</h3>
+
+<p>
+Professional makeup for parties, weddings and special events.
+</p>
+
+<p><strong>₹1500 onwards</strong></p>
+
+<button class="btn btn-dark"
+onclick="bookService('Makeup',1500)">
+
+Book Now
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SERVICES ================= -->
+
+<section id="services" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>💇 Our Services</h2>
+
+<p>Choose from our wide range of beauty services</p>
+
+</div>
+
+<div class="card-grid">
+
+<div class="card">
+
+<div class="icon-box">✂️</div>
+
+<h3>Haircut</h3>
+
+<p>Professional haircut and styling.</p>
+
+<p><strong>₹400</strong></p>
+
+<button class="btn btn-success"
+onclick="bookService('Haircut',400)">
+
+Book
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">💇</div>
+
+<h3>Hair Styling</h3>
+
+<p>Modern hairstyles for all occasions.</p>
+
+<p><strong>₹500</strong></p>
+
+<button class="btn btn-success"
+onclick="bookService('Hair Styling',500)">
+
+Book
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">💆</div>
+
+<h3>Facial</h3>
+
+<p>Refreshing facial treatment.</p>
+
+<p><strong>₹800</strong></p>
+
+<button class="btn btn-success"
+onclick="bookService('Facial',800)">
+
+Book
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">💅</div>
+
+<h3>Manicure</h3>
+
+<p>Complete nail care and manicure.</p>
+
+<p><strong>₹400</strong></p>
+
+<button class="btn btn-success"
+onclick="bookService('Manicure',400)">
+
+Book
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">🦶</div>
+
+<h3>Pedicure</h3>
+
+<p>Relaxing foot and nail treatment.</p>
+
+<p><strong>₹500</strong></p>
+
+<button class="btn btn-success"
+onclick="bookService('Pedicure',500)">
+
+Book
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">💄</div>
+
+<h3>Party Makeup</h3>
+
+<p>Professional makeup for special occasions.</p>
+
+<p><strong>₹1500</strong></p>
+
+<button class="btn btn-success"
+onclick="bookService('Party Makeup',1500)">
+
+Book
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= STYLISTS ================= -->
+
+<section id="stylists" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>👩‍💼 Our Stylists</h2>
+
+<p>Choose your preferred beauty professional</p>
+
+</div>
+
+<div class="card-grid">
+
+<div class="card">
+
+<div class="icon-box">👩</div>
+
+<h3>Priya Sharma</h3>
+
+<p>Senior Hair Stylist</p>
+
+<p>Experience: 8 Years</p>
+
+<p>⭐ 4.9 / 5</p>
+
+<button class="btn btn-dark"
+onclick="selectStylist('Priya Sharma')">
+
+Select Stylist
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">👩</div>
+
+<h3>Anjali Rao</h3>
+
+<p>Makeup Artist</p>
+
+<p>Experience: 6 Years</p>
+
+<p>⭐ 4.8 / 5</p>
+
+<button class="btn btn-dark"
+onclick="selectStylist('Anjali Rao')">
+
+Select Stylist
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon-box">👩</div>
+
+<h3>Sneha Kumar</h3>
+
+<p>Beauty Specialist</p>
+
+<p>Experience: 7 Years</p>
+
+<p>⭐ 4.9 / 5</p>
+
+<button class="btn btn-dark"
+onclick="selectStylist('Sneha Kumar')">
+
+Select Stylist
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BOOKING ================= -->
+
+<section id="booking" class="page section">
+
+<div class="form-container">
+
+<h2>📅 Book Appointment</h2>
+
+<form onsubmit="confirmBooking(event)">
+
+<div class="form-group">
+
+<label>Service</label>
+
+<select id="bookingService" required>
+
+<option value="">Select Service</option>
+
+<option value="Haircut">Haircut - ₹400</option>
+
+<option value="Hair Styling">Hair Styling - ₹500</option>
+
+<option value="Facial">Facial - ₹800</option>
+
+<option value="Manicure">Manicure - ₹400</option>
+
+<option value="Pedicure">Pedicure - ₹500</option>
+
+<option value="Makeup">Makeup - ₹1500</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Stylist</label>
+
+<select id="bookingStylist" required>
+
+<option value="">Select Stylist</option>
+
+<option>Priya Sharma</option>
+
+<option>Anjali Rao</option>
+
+<option>Sneha Kumar</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Appointment Date</label>
+
+<input type="date"
+id="bookingDate"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Appointment Time</label>
+
+<select id="bookingTime" required>
+
+<option value="">Select Time</option>
+
+<option>10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>03:00 PM</option>
+<option>04:00 PM</option>
+<option>05:00 PM</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Payment Type</label>
+
+<select id="paymentType">
+
+<option>Full Payment</option>
+
+<option>50% Deposit</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Payment Method</label>
+
+<select id="paymentMethod">
+
+<option>UPI</option>
+
+<option>Credit Card</option>
+
+<option>Debit Card</option>
+
+<option>PayPal</option>
+
+<option>Stripe</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Special Request</label>
+
+<textarea
+placeholder="Any special requirements...">
+</textarea>
+
+</div>
+
+<button class="btn btn-success">
+
+Confirm Appointment
+
+</button>
+
+</form>
+
+</div>
+
+
+<!-- CALENDAR -->
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Reservation Calendar</h2>
+
+<p>Green dates are available</p>
+
+</div>
+
+<div class="calendar">
+
+<div class="heading">Sun</div>
+<div class="heading">Mon</div>
+<div class="heading">Tue</div>
+<div class="heading">Wed</div>
+<div class="heading">Thu</div>
+<div class="heading">Fri</div>
+<div class="heading">Sat</div>
+
+<div class="unavailable">1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div class="selected">6</div>
+<div>7</div>
+
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div class="unavailable">11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+
+<div>15</div>
+<div>16</div>
+<div>17</div>
+<div>18</div>
+<div class="unavailable">19</div>
+<div>20</div>
+<div>21</div>
+
+<div>22</div>
+<div>23</div>
+<div>24</div>
+<div>25</div>
+<div>26</div>
+<div>27</div>
+<div>28</div>
+
+<div>29</div>
+<div>30</div>
+<div>31</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= APPOINTMENTS ================= -->
+
+<section id="appointments" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>👤 My Appointments</h2>
+
+<p>Manage your upcoming and previous reservations</p>
+
+</div>
+
+<div class="card">
+
+<h3>Upcoming Reservation</h3>
+
+<p style="margin-top:10px;">
+<strong>Service:</strong> Hair Styling
+</p>
+
+<p>
+<strong>Stylist:</strong> Priya Sharma
+</p>
+
+<p>
+<strong>Date:</strong> 25-Aug-2026
+</p>
+
+<p>
+<strong>Time:</strong> 03:00 PM
+</p>
+
+<p>
+<strong>Payment:</strong> ₹500
+</p>
+
+<p style="margin-top:10px;">
+
+<span class="status confirmed">
+Confirmed
+</span>
+
+</p>
+
+<button class="btn btn-warning"
+onclick="reschedule()">
+
+Reschedule
+
+</button>
+
+<button class="btn btn-danger"
+onclick="cancelAppointment()">
+
+Cancel
+
+</button>
+
+</div>
+
+
+<h2 style="color:#8e2450;margin:40px 0 20px;">
+Reservation History
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Service</th>
+<th>Stylist</th>
+<th>Date</th>
+<th>Time</th>
+<th>Status</th>
+
+</tr>
+
+<tr>
+
+<td>Facial</td>
+
+<td>Anjali Rao</td>
+
+<td>15-Aug-2026</td>
+
+<td>11:00 AM</td>
+
+<td>
+
+<span class="status confirmed">
+Completed
+</span>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Manicure</td>
+
+<td>Sneha Kumar</td>
+
+<td>10-Aug-2026</td>
+
+<td>02:00 PM</td>
+
+<td>
+
+<span class="status confirmed">
+Completed
+</span>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Pedicure</td>
+
+<td>Priya Sharma</td>
+
+<td>05-Aug-2026</td>
+
+<td>04:00 PM</td>
+
+<td>
+
+<span class="status cancelled">
+Cancelled
+</span>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section id="profile" class="page section">
+
+<div class="form-container">
+
+<h2>👤 Personal Account</h2>
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input value="Varshini">
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input value="customer@example.com">
+
+</div>
+
+<div class="form-group">
+
+<label>Mobile Number</label>
+
+<input value="9876543210">
+
+</div>
+
+<div class="form-group">
+
+<label>Address</label>
+
+<textarea>Chennai, Tamil Nadu</textarea>
+
+</div>
+
+<button class="btn btn-success"
+onclick="updateProfile()">
+
+Update Profile
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= FEEDBACK ================= -->
+
+<section id="feedback" class="page section">
+
+<div class="form-container">
+
+<h2>⭐ Customer Feedback</h2>
+
+<form onsubmit="submitFeedback(event)">
+
+<div class="form-group">
+
+<label>Your Rating</label>
+
+<select required>
+
+<option>5 - Excellent</option>
+<option>4 - Very Good</option>
+<option>3 - Good</option>
+<option>2 - Average</option>
+<option>1 - Poor</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Your Feedback</label>
+
+<textarea
+required
+placeholder="Share your experience...">
+</textarea>
+
+</div>
+
+<button class="btn btn-success">
+
+Submit Feedback
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login" class="page section">
+
+<div class="form-container">
+
+<h2>🔐 Customer Login</h2>
+
+<form onsubmit="login(event)">
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email" required>
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input type="password" required>
+
+</div>
+
+<button class="btn btn-dark">
+
+Login
+
+</button>
+
+</form>
+
+<p style="text-align:center;margin-top:20px;">
+
+Don't have an account?
+
+<a href="#"
+onclick="showPage('register')">
+
+Register
+
+</a>
+
+</p>
+
+<p style="text-align:center;margin-top:10px;">
+
+<a href="#"
+onclick="forgotPassword()">
+
+Forgot Password?
+
+</a>
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= REGISTER ================= -->
+
+<section id="register" class="page section">
+
+<div class="form-container">
+
+<h2>📝 Customer Registration</h2>
+
+<form onsubmit="register(event)">
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email" required>
+
+</div>
+
+<div class="form-group">
+
+<label>Mobile Number</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input type="password" required>
+
+</div>
+
+<div class="form-group">
+
+<label>Confirm Password</label>
+
+<input type="password" required>
+
+</div>
+
+<button class="btn btn-success">
+
+Create Account
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section id="admin" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>⚙️ Salon Manager Dashboard</h2>
+
+<p>Manage services, staff and reservations</p>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<h2>125</h2>
+
+<p>Appointments</p>
+
+</div>
+
+<div class="stat">
+
+<h2>18</h2>
+
+<p>Staff Members</p>
+
+</div>
+
+<div class="stat">
+
+<h2>32</h2>
+
+<p>Services</p>
+
+</div>
+
+<div class="stat">
+
+<h2>₹85K</h2>
+
+<p>Revenue</p>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN LOGIN -->
+
+<div class="form-container">
+
+<h2>Admin Login</h2>
+
+<form onsubmit="adminLogin(event)">
+
+<div class="form-group">
+
+<label>Username</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input type="password" required>
+
+</div>
+
+<button class="btn btn-dark">
+
+Login
+
+</button>
+
+</form>
+
+</div>
+
+
+<!-- ADD SERVICE -->
+
+<div class="form-container">
+
+<h2>➕ Add Beauty Service</h2>
+
+<form onsubmit="addService(event)">
+
+<div class="form-group">
+
+<label>Service Name</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Price</label>
+
+<input type="number" required>
+
+</div>
+
+<div class="form-group">
+
+<label>Duration</label>
+
+<select>
+
+<option>30 Minutes</option>
+<option>45 Minutes</option>
+<option>60 Minutes</option>
+<option>90 Minutes</option>
+<option>120 Minutes</option>
+
+</select>
+
+</div>
+
+<button class="btn btn-success">
+
+Add Service
+
+</button>
+
+</form>
+
+</div>
+
+
+<!-- RESERVATION MANAGEMENT -->
+
+<h2 style="color:#8e2450;margin:40px 0 20px;">
+
+📅 Reservation Management
+
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Customer</th>
+<th>Service</th>
+<th>Stylist</th>
+<th>Date</th>
+<th>Time</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+<tr>
+
+<td>Rahul</td>
+
+<td>Hair Styling</td>
+
+<td>Priya Sharma</td>
+
+<td>25-Aug-2026</td>
+
+<td>03:00 PM</td>
+
+<td>
+
+<span class="status confirmed">
+Confirmed
+</span>
+
+</td>
+
+<td>
+
+<button class="btn btn-warning"
+onclick="editReservation()">
+
+Edit
+
+</button>
+
+<button class="btn btn-danger"
+onclick="cancelAdminReservation()">
+
+Cancel
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Priya</td>
+
+<td>Makeup</td>
+
+<td>Anjali Rao</td>
+
+<td>26-Aug-2026</td>
+
+<td>04:00 PM</td>
+
+<td>
+
+<span class="status pending">
+Pending
+</span>
+
+</td>
+
+<td>
+
+<button class="btn btn-success"
+onclick="confirmReservation()">
+
+Confirm
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- STAFF -->
+
+<h2 style="color:#8e2450;margin:40px 0 20px;">
+
+👩‍💼 Staff Management
+
+</h2>
+
+<div class="card-grid">
+
+<div class="card">
+
+<h3>Priya Sharma</h3>
+
+<p>Senior Hair Stylist</p>
+
+<p>Available: 10 AM - 6 PM</p>
+
+<button class="btn btn-dark"
+onclick="contactCustomer()">
+
+📞 Contact Customer
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>Anjali Rao</h3>
+
+<p>Makeup Artist</p>
+
+<p>Available: 11 AM - 7 PM</p>
+
+<button class="btn btn-dark"
+onclick="contactCustomer()">
+
+📱 Send SMS
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>Sneha Kumar</h3>
+
+<p>Beauty Specialist</p>
+
+<p>Available: 10 AM - 5 PM</p>
+
+<button class="btn btn-dark"
+onclick="lockHours()">
+
+Lock Unavailable Hours
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div class="card" style="margin-top:30px;">
+
+<h3>💳 Payment Management</h3>
+
+<p>
+Accept full payments or partial deposits.
+</p>
+
+<p style="margin-top:10px;">
+Supported: Stripe, PayPal, UPI and Cards
+</p>
+
+<button class="btn btn-success"
+onclick="paymentSettings()">
+
+Payment Settings
+
+</button>
+
+</div>
+
+
+<!-- LOGOUT -->
+
+<button class="btn btn-danger"
+onclick="adminLogout()">
+
+Logout
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<h3>💇 GlowBeauty Salon</h3>
+
+<p>
+Professional Beauty Services • Easy Booking • Trusted Stylists
+</p>
+
+<p>
+© 2026 GlowBeauty. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<script>
+
+/* ================= VARIABLES ================= */
+
+let selectedService = "";
+let selectedPrice = 0;
+
+
+/* ================= PAGE NAVIGATION ================= */
+
+function showPage(page){
+
+    document.querySelectorAll(".page")
+    .forEach(function(p){
+
+        p.classList.remove("active");
+
+    });
+
+    document.getElementById(page)
+    .classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* ================= BOOK SERVICE ================= */
+
+function bookService(service,price){
+
+    selectedService = service;
+    selectedPrice = price;
+
+    showPage("booking");
+
+    document.getElementById(
+        "bookingService"
+    ).value = service;
+
+}
+
+
+/* ================= SELECT STYLIST ================= */
+
+function selectStylist(name){
+
+    showPage("booking");
+
+    document.getElementById(
+        "bookingStylist"
+    ).value = name;
+
+    alert(
+        name +
+        " selected successfully!"
+    );
+}
+
+
+/* ================= SEARCH ================= */
+
+function searchAvailability(){
+
+    let service =
+    document.getElementById(
+        "searchService"
+    ).value;
+
+    let date =
+    document.getElementById(
+        "searchDate"
+    ).value;
+
+    let time =
+    document.getElementById(
+        "searchTime"
+    ).value;
+
+    if(!date){
+
+        alert(
+            "Please select an appointment date."
+        );
+
+        return;
+    }
+
+    alert(
+        "Availability checked!\n\n" +
+        "Service: " + service +
+        "\nDate: " + date +
+        "\nTime: " + time +
+        "\n\nSlot Available ✓"
+    );
+
+    showPage("booking");
+}
+
+
+/* ================= CONFIRM BOOKING ================= */
+
+function confirmBooking(event){
+
+    event.preventDefault();
+
+    let service =
+    document.getElementById(
+        "bookingService"
+    ).value;
+
+    let stylist =
+    document.getElementById(
+        "bookingStylist"
+    ).value;
+
+    let date =
+    document.getElementById(
+        "bookingDate"
+    ).value;
+
+    let time =
+    document.getElementById(
+        "bookingTime"
+    ).value;
+
+    let payment =
+    document.getElementById(
+        "paymentType"
+    ).value;
+
+    if(!service || !stylist){
+
+        alert(
+            "Please select service and stylist."
+        );
+
+        return;
+    }
+
+    let bookingID =
+    "GLW" +
+    Math.floor(
+        10000 +
+        Math.random()*90000
+    );
+
+    alert(
+        "Appointment Confirmed! ✓\n\n" +
+
+        "Booking ID: " +
+        bookingID +
+
+        "\nService: " +
+        service +
+
+        "\nStylist: " +
+        stylist +
+
+        "\nDate: " +
+        date +
+
+        "\nTime: " +
+        time +
+
+        "\nPayment: " +
+        payment +
+
+        "\n\nConfirmation email sent successfully."
+    );
+
+    showPage("appointments");
+}
+
+
+/* ================= RESCHEDULE ================= */
+
+function reschedule(){
+
+    let newDate =
+    prompt(
+        "Enter new appointment date:"
+    );
+
+    if(newDate){
+
+        alert(
+            "Appointment rescheduled to " +
+            newDate
+        );
+    }
+}
+
+
+/* ================= CANCEL ================= */
+
+function cancelAppointment(){
+
+    let result =
+    confirm(
+        "Are you sure you want to cancel this appointment?"
+    );
+
+    if(result){
+
+        alert(
+            "Appointment cancelled successfully."
+        );
+    }
+}
+
+
+/* ================= LOGIN ================= */
+
+function login(event){
+
+    event.preventDefault();
+
+    alert(
+        "Login successful!"
+    );
+
+    showPage("home");
+}
+
+
+/* ================= REGISTER ================= */
+
+function register(event){
+
+    event.preventDefault();
+
+    alert(
+        "Account created successfully!"
+    );
+
+    showPage("login");
+}
+
+
+/* ================= FORGOT PASSWORD ================= */
+
+function forgotPassword(){
+
+    let email =
+    prompt(
+        "Enter your registered email:"
+    );
+
+    if(email){
+
+        alert(
+            "Password reset link sent to " +
+            email
+        );
+    }
+}
+
+
+/* ================= PROFILE ================= */
+
+function updateProfile(){
+
+    alert(
+        "Personal data updated successfully!"
+    );
+}
+
+
+/* ================= FEEDBACK ================= */
+
+function submitFeedback(event){
+
+    event.preventDefault();
+
+    alert(
+        "Thank you for your valuable feedback! ⭐"
+    );
+
+    showPage("home");
+}
+
+
+/* ================= ADMIN ================= */
+
+function adminLogin(event){
+
+    event.preventDefault();
+
+    alert(
+        "Salon manager login successful!"
+    );
+}
+
+
+function addService(event){
+
+    event.preventDefault();
+
+    alert(
+        "New beauty service added successfully!"
+    );
+
+    event.target.reset();
+}
+
+
+function editReservation(){
+
+    alert(
+        "Reservation details opened for editing."
+    );
+}
+
+
+function cancelAdminReservation(){
+
+    let result =
+    confirm(
+        "Cancel this reservation?"
+    );
+
+    if(result){
+
+        alert(
+            "Reservation cancelled successfully."
+        );
+    }
+}
+
+
+function confirmReservation(){
+
+    alert(
+        "Reservation confirmed and customer notified."
+    );
+}
+
+
+function contactCustomer(){
+
+    alert(
+        "Customer contact options opened.\n\nSMS / Phone Call available."
+    );
+}
+
+
+function lockHours(){
+
+    alert(
+        "Unavailable hours have been locked."
+    );
+}
+
+
+function paymentSettings(){
+
+    alert(
+        "Payment settings opened.\n\n" +
+        "Supported:\n" +
+        "Stripe\n" +
+        "PayPal\n" +
+        "UPI\n" +
+        "Credit/Debit Cards"
+    );
+}
+
+
+function adminLogout(){
+
+    alert(
+        "Admin logged out successfully."
+    );
+
+    showPage("home");
+}
+
+</script>
+
+</body>
+</html>
