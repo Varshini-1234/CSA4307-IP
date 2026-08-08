@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleHub - Online Fashion Store</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f8f8f8;
+    color:#333;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+button{
+    cursor:pointer;
+}
+
+.btn{
+    border:none;
+    padding:11px 18px;
+    border-radius:6px;
+    margin:5px;
+    font-weight:bold;
+}
+
+.btn-primary{
+    background:#be185d;
+    color:white;
+}
+
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-dark{
+    background:#111827;
+    color:white;
+}
+
+.btn-warning{
+    background:#f59e0b;
+    color:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:#111827;
+    color:white;
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ec4899;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#f472b6;
+}
+
+.cart-count{
+    background:#ec4899;
+    padding:3px 7px;
+    border-radius:50%;
+    font-size:11px;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#831843,#ec4899);
+    color:white;
+    padding:80px 5%;
+}
+
+.hero-content{
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:50px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    max-width:650px;
+    line-height:1.7;
+    font-size:18px;
+}
+
+.hero .btn{
+    background:white;
+    color:#be185d;
+}
+
+/* SEARCH */
+
+.search-area{
+    width:90%;
+    max-width:1000px;
+    margin:-30px auto 30px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 20px rgba(0,0,0,.12);
+    position:relative;
+}
+
+.search-area input{
+    width:75%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+.search-area button{
+    padding:13px 20px;
+    background:#be185d;
+    color:white;
+    border:none;
+    border-radius:6px;
+}
+
+/* SECTIONS */
+
+.section{
+    padding:50px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.section-title h2{
+    font-size:30px;
+    color:#831843;
+}
+
+.section-title p{
+    color:#777;
+    margin-top:8px;
+}
+
+/* CATEGORY */
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.category{
+    background:white;
+    padding:30px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.category:hover{
+    transform:translateY(-5px);
+}
+
+.category-icon{
+    font-size:55px;
+    margin-bottom:12px;
+}
+
+.category h3{
+    color:#be185d;
+}
+
+/* PRODUCTS */
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:25px;
+}
+
+.product-card{
+    background:white;
+    padding:18px;
+    border-radius:10px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.product-card:hover{
+    transform:translateY(-3px);
+}
+
+.product-image{
+    height:200px;
+    background:#fce7f3;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:8px;
+    font-size:80px;
+    margin-bottom:15px;
+}
+
+.product-card h3{
+    margin-bottom:8px;
+}
+
+.price{
+    color:#be185d;
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.old-price{
+    text-decoration:line-through;
+    color:#999;
+    font-size:14px;
+}
+
+.rating{
+    color:#f59e0b;
+}
+
+/* FORMS */
+
+.form-container{
+    max-width:600px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 3px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    color:#be185d;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+/* CART */
+
+.cart-item{
+    background:white;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:8px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+
+.cart-total{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    text-align:right;
+}
+
+.cart-total h2{
+    color:#be185d;
+}
+
+/* TABLE */
+
+.table-container{
+    overflow-x:auto;
+    background:white;
+    border-radius:8px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+
+th{
+    background:#111827;
+    color:white;
+}
+
+/* STATUS */
+
+.status{
+    padding:6px 12px;
+    border-radius:15px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.delivered{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.shipped{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+/* FOOTER */
+
+footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:50px;
+}
+
+footer p{
+    color:#aaa;
+    margin-top:8px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+    .search-area input{
+        width:100%;
+        margin-bottom:10px;
+    }
+
+    .cart-item{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+<div class="logo">
+Style<span>Hub</span>
+</div>
+
+<ul class="nav-links">
+
+<li><a onclick="showPage('home')">Home</a></li>
+
+<li><a onclick="showPage('products')">Products</a></li>
+
+<li><a onclick="showPage('categories')">Categories</a></li>
+
+<li>
+<a onclick="showPage('wishlist')">❤️ Wishlist</a>
+</li>
+
+<li>
+<a onclick="showPage('cart')">
+🛒 Cart <span class="cart-count" id="cartCount">0</span>
+</a>
+</li>
+
+<li><a onclick="showPage('orders')">My Orders</a></li>
+
+<li><a onclick="showPage('profile')">Profile</a></li>
+
+<li><a onclick="showPage('login')">Login</a></li>
+
+<li><a onclick="showPage('admin')">Admin</a></li>
+
+</ul>
+
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>Discover Your Style</h1>
+
+<p>
+Explore the latest fashion trends for men, women and children.
+Shop clothing, footwear and accessories at amazing prices.
+</p>
+
+<button
+class="btn"
+onclick="showPage('products')">
+
+Shop Now
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="search-area">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search dresses, shoes, shirts, accessories...">
+
+<button onclick="searchProducts()">
+🔍 Search
+</button>
+
+</div>
+
+
+<!-- CATEGORIES -->
+
+<div class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Shop by Category</h2>
+
+<p>Choose your favorite fashion category</p>
+
+</div>
+
+
+<div class="category-grid">
+
+<div
+class="category"
+onclick="filterCategory('Women')">
+
+<div class="category-icon">👗</div>
+
+<h3>Women</h3>
+
+<p>Dresses, tops and fashion accessories</p>
+
+</div>
+
+
+<div
+class="category"
+onclick="filterCategory('Men')">
+
+<div class="category-icon">👔</div>
+
+<h3>Men</h3>
+
+<p>Shirts, jeans and formal wear</p>
+
+</div>
+
+
+<div
+class="category"
+onclick="filterCategory('Kids')">
+
+<div class="category-icon">🧒</div>
+
+<h3>Kids</h3>
+
+<p>Trendy clothes for children</p>
+
+</div>
+
+
+<div
+class="category"
+onclick="filterCategory('Footwear')">
+
+<div class="category-icon">👟</div>
+
+<h3>Footwear</h3>
+
+<p>Shoes, sneakers and sandals</p>
+
+</div>
+
+
+<div
+class="category"
+onclick="filterCategory('Accessories')">
+
+<div class="category-icon">👜</div>
+
+<h3>Accessories</h3>
+
+<p>Bags, watches and fashion accessories</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FLASH SALE -->
+
+<div class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>🔥 Flash Sale</h2>
+
+<p>Limited-time fashion offers</p>
+
+</div>
+
+
+<div class="product-grid">
+
+<div class="product-card">
+
+<div class="product-image">
+👗
+</div>
+
+<h3>Floral Summer Dress</h3>
+
+<p>Women's casual wear</p>
+
+<div class="price">
+₹1,499
+</div>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Floral Summer Dress',1499)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+
+<div class="product-card">
+
+<div class="product-image">
+👔
+</div>
+
+<h3>Premium Formal Shirt</h3>
+
+<p>Men's formal wear</p>
+
+<div class="price">
+₹999
+</div>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Premium Formal Shirt',999)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+
+<div class="product-card">
+
+<div class="product-image">
+👟
+</div>
+
+<h3>Urban Sneakers</h3>
+
+<p>Comfortable everyday footwear</p>
+
+<div class="price">
+₹1,799
+</div>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Urban Sneakers',1799)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section id="categories" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Fashion Categories</h2>
+
+<p>Browse all available categories and subcategories</p>
+
+</div>
+
+
+<div class="category-grid">
+
+<div class="category">
+
+<div class="category-icon">👗</div>
+
+<h3>Women</h3>
+
+<p>• Dresses</p>
+<p>• Tops</p>
+<p>• Jeans</p>
+<p>• Ethnic Wear</p>
+
+<button
+class="btn btn-primary"
+onclick="filterCategory('Women')">
+
+View Products
+
+</button>
+
+</div>
+
+
+<div class="category">
+
+<div class="category-icon">👔</div>
+
+<h3>Men</h3>
+
+<p>• Shirts</p>
+<p>• T-Shirts</p>
+<p>• Jeans</p>
+<p>• Formal Wear</p>
+
+<button
+class="btn btn-primary"
+onclick="filterCategory('Men')">
+
+View Products
+
+</button>
+
+</div>
+
+
+<div class="category">
+
+<div class="category-icon">🧒</div>
+
+<h3>Kids</h3>
+
+<p>• Boys Wear</p>
+<p>• Girls Wear</p>
+<p>• School Wear</p>
+<p>• Party Wear</p>
+
+<button
+class="btn btn-primary"
+onclick="filterCategory('Kids')">
+
+View Products
+
+</button>
+
+</div>
+
+
+<div class="category">
+
+<div class="category-icon">👟</div>
+
+<h3>Footwear</h3>
+
+<p>• Sneakers</p>
+<p>• Sandals</p>
+<p>• Formal Shoes</p>
+<p>• Sports Shoes</p>
+
+<button
+class="btn btn-primary"
+onclick="filterCategory('Footwear')">
+
+View Products
+
+</button>
+
+</div>
+
+
+<div class="category">
+
+<div class="category-icon">👜</div>
+
+<h3>Accessories</h3>
+
+<p>• Bags</p>
+<p>• Watches</p>
+<p>• Belts</p>
+<p>• Sunglasses</p>
+
+<button
+class="btn btn-primary"
+onclick="filterCategory('Accessories')">
+
+View Products
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section id="products" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>🛍️ All Fashion Products</h2>
+
+<p>Explore the latest collection</p>
+
+</div>
+
+
+<div class="product-grid" id="productGrid">
+
+
+<!-- WOMEN -->
+
+<div
+class="product-card"
+data-category="Women"
+data-name="Floral Summer Dress">
+
+<div class="product-image">👗</div>
+
+<h3>Floral Summer Dress</h3>
+
+<p>Elegant women's casual dress</p>
+
+<div class="rating">★★★★★</div>
+
+<div class="price">₹1,499</div>
+
+<button
+class="btn btn-primary"
+onclick="viewProduct(
+'Floral Summer Dress',
+'Women',
+1499,
+'Elegant floral summer dress made from comfortable fabric.'
+)">
+
+View Details
+
+</button>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Floral Summer Dress',1499)">
+
+Add to Cart
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="addWishlist('Floral Summer Dress')">
+
+❤️
+
+</button>
+
+</div>
+
+
+<!-- MEN -->
+
+<div
+class="product-card"
+data-category="Men"
+data-name="Premium Formal Shirt">
+
+<div class="product-image">👔</div>
+
+<h3>Premium Formal Shirt</h3>
+
+<p>Classic men's formal shirt</p>
+
+<div class="rating">★★★★★</div>
+
+<div class="price">₹999</div>
+
+<button
+class="btn btn-primary"
+onclick="viewProduct(
+'Premium Formal Shirt',
+'Men',
+999,
+'Premium cotton formal shirt suitable for office and formal occasions.'
+)">
+
+View Details
+
+</button>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Premium Formal Shirt',999)">
+
+Add to Cart
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="addWishlist('Premium Formal Shirt')">
+
+❤️
+
+</button>
+
+</div>
+
+
+<!-- KIDS -->
+
+<div
+class="product-card"
+data-category="Kids"
+data-name="Kids Party Dress">
+
+<div class="product-image">🧒</div>
+
+<h3>Kids Party Dress</h3>
+
+<p>Beautiful party wear for children</p>
+
+<div class="rating">★★★★☆</div>
+
+<div class="price">₹1,199</div>
+
+<button
+class="btn btn-primary"
+onclick="viewProduct(
+'Kids Party Dress',
+'Kids',
+1199,
+'Comfortable and stylish party dress designed for children.'
+)">
+
+View Details
+
+</button>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Kids Party Dress',1199)">
+
+Add to Cart
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="addWishlist('Kids Party Dress')">
+
+❤️
+
+</button>
+
+</div>
+
+
+<!-- FOOTWEAR -->
+
+<div
+class="product-card"
+data-category="Footwear"
+data-name="Urban Sneakers">
+
+<div class="product-image">👟</div>
+
+<h3>Urban Sneakers</h3>
+
+<p>Comfortable everyday sneakers</p>
+
+<div class="rating">★★★★★</div>
+
+<div class="price">₹1,799</div>
+
+<button
+class="btn btn-primary"
+onclick="viewProduct(
+'Urban Sneakers',
+'Footwear',
+1799,
+'Stylish lightweight sneakers designed for everyday comfort.'
+)">
+
+View Details
+
+</button>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Urban Sneakers',1799)">
+
+Add to Cart
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="addWishlist('Urban Sneakers')">
+
+❤️
+
+</button>
+
+</div>
+
+
+<!-- ACCESSORIES -->
+
+<div
+class="product-card"
+data-category="Accessories"
+data-name="Classic Handbag">
+
+<div class="product-image">👜</div>
+
+<h3>Classic Handbag</h3>
+
+<p>Elegant women's handbag</p>
+
+<div class="rating">★★★★☆</div>
+
+<div class="price">₹1,299</div>
+
+<button
+class="btn btn-primary"
+onclick="viewProduct(
+'Classic Handbag',
+'Accessories',
+1299,
+'Stylish handbag with spacious compartments and premium finish.'
+)">
+
+View Details
+
+</button>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Classic Handbag',1299)">
+
+Add to Cart
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="addWishlist('Classic Handbag')">
+
+❤️
+
+</button>
+
+</div>
+
+
+<!-- MEN -->
+
+<div
+class="product-card"
+data-category="Men"
+data-name="Denim Jeans">
+
+<div class="product-image">👖</div>
+
+<h3>Classic Denim Jeans</h3>
+
+<p>Comfortable men's denim jeans</p>
+
+<div class="rating">★★★★★</div>
+
+<div class="price">₹1,599</div>
+
+<button
+class="btn btn-primary"
+onclick="viewProduct(
+'Classic Denim Jeans',
+'Men',
+1599,
+'Comfortable classic-fit denim jeans for everyday wear.'
+)">
+
+View Details
+
+</button>
+
+<button
+class="btn btn-success"
+onclick="addToCart('Classic Denim Jeans',1599)">
+
+Add to Cart
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="addWishlist('Classic Denim Jeans')">
+
+❤️
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PRODUCT DETAILS ================= -->
+
+<section id="details" class="page section">
+
+<div class="container">
+
+<div class="form-container">
+
+<h2 id="detailName">
+Product Details
+</h2>
+
+<div class="product-image">
+👗
+</div>
+
+<p>
+
+<strong>Price:</strong>
+
+<span
+id="detailPrice"
+class="price">
+
+</span>
+
+</p>
+
+<p
+id="detailDescription"
+style="margin-top:15px;line-height:1.7">
+
+</p>
+
+
+<h3 style="margin-top:25px">
+Select Size
+</h3>
+
+<select
+id="productSize"
+style="padding:10px;margin-top:10px">
+
+<option>XS</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+<option>XXL</option>
+
+</select>
+
+
+<h3 style="margin-top:25px">
+Customer Reviews
+</h3>
+
+<p style="margin-top:10px">
+⭐⭐⭐⭐⭐ Excellent quality!
+</p>
+
+<p style="margin-top:10px">
+⭐⭐⭐⭐ Very stylish product.
+</p>
+
+
+<button
+class="btn btn-success"
+onclick="addDetailProduct()">
+
+Add to Cart
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="addWishlist(selectedProduct.name)">
+
+❤️ Add to Wishlist
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CART ================= -->
+
+<section id="cart" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>🛒 Shopping Cart</h2>
+
+<p>Review and edit your selected products</p>
+
+</div>
+
+<div id="cartItems">
+
+<p style="text-align:center">
+Your cart is empty.
+</p>
+
+</div>
+
+<div class="cart-total">
+
+<h3>Total Amount</h3>
+
+<h2 id="cartTotal">₹0</h2>
+
+<button
+class="btn btn-success"
+onclick="checkout()">
+
+Checkout
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= WISHLIST ================= -->
+
+<section id="wishlist" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>❤️ My Wishlist</h2>
+
+<p>Your favorite products</p>
+
+</div>
+
+<div id="wishlistItems">
+
+<p style="text-align:center">
+Your wishlist is empty.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CHECKOUT ================= -->
+
+<section id="checkout" class="page section">
+
+<div class="form-container">
+
+<h2>💳 Checkout</h2>
+
+<form onsubmit="placeOrder(event)">
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email" required>
+
+</div>
+
+<div class="form-group">
+
+<label>Phone Number</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Delivery Address</label>
+
+<textarea required></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label>Payment Method</label>
+
+<select required>
+
+<option>UPI</option>
+
+<option>Credit / Debit Card</option>
+
+<option>Net Banking</option>
+
+<option>Cash on Delivery</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Coupon Code</label>
+
+<input placeholder="STYLE10">
+
+</div>
+
+<button class="btn btn-success">
+
+Place Order
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= ORDERS ================= -->
+
+<section id="orders" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>📦 My Orders</h2>
+
+<p>View order history and track your orders</p>
+
+</div>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+<th>Order ID</th>
+<th>Product</th>
+<th>Date</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+
+<tr>
+
+<td>SH10021</td>
+
+<td>Floral Summer Dress</td>
+
+<td>08-Aug-2026</td>
+
+<td>₹1,499</td>
+
+<td>
+<span class="status delivered">
+Delivered
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td>SH10022</td>
+
+<td>Urban Sneakers</td>
+
+<td>08-Aug-2026</td>
+
+<td>₹1,799</td>
+
+<td>
+<span class="status shipped">
+Shipped
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td>SH10023</td>
+
+<td>Classic Handbag</td>
+
+<td>08-Aug-2026</td>
+
+<td>₹1,299</td>
+
+<td>
+<span class="status pending">
+Processing
+</span>
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section id="profile" class="page section">
+
+<div class="form-container">
+
+<h2>👤 My Profile</h2>
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input value="Varshini">
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+value="varshini@example.com">
+
+</div>
+
+<div class="form-group">
+
+<label>Phone</label>
+
+<input value="9876543210">
+
+</div>
+
+<div class="form-group">
+
+<label>Address</label>
+
+<textarea>Chennai, Tamil Nadu</textarea>
+
+</div>
+
+<button
+class="btn btn-success"
+onclick="updateProfile()">
+
+Update Profile
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login" class="page section">
+
+<div class="form-container">
+
+<h2>🔐 Login</h2>
+
+<form onsubmit="login(event)">
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email" required>
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input type="password" required>
+
+</div>
+
+<button class="btn btn-dark">
+Login
+</button>
+
+</form>
+
+<p style="text-align:center;margin-top:20px">
+
+Don't have an account?
+
+<a
+href="#"
+onclick="showPage('register')">
+
+Register
+
+</a>
+
+</p>
+
+<p style="text-align:center;margin-top:10px">
+
+<a
+href="#"
+onclick="forgotPassword()">
+
+Forgot Password?
+
+</a>
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= REGISTER ================= -->
+
+<section id="register" class="page section">
+
+<div class="form-container">
+
+<h2>📝 Registration</h2>
+
+<form onsubmit="register(event)">
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email" required>
+
+</div>
+
+<div class="form-group">
+
+<label>Mobile Number</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input type="password" required>
+
+</div>
+
+<div class="form-group">
+
+<label>Confirm Password</label>
+
+<input type="password" required>
+
+</div>
+
+<button class="btn btn-success">
+
+Create Account
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section id="admin" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>⚙️ Admin Dashboard</h2>
+
+<p>Manage products, customers and orders</p>
+
+</div>
+
+
+<!-- ADMIN LOGIN -->
+
+<div class="form-container">
+
+<h2>Admin Login</h2>
+
+<form onsubmit="adminLogin(event)">
+
+<div class="form-group">
+
+<label>Username</label>
+
+<input required>
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input type="password" required>
+
+</div>
+
+<button class="btn btn-dark">
+Login
+</button>
+
+</form>
+
+</div>
+
+
+<!-- ADD PRODUCT -->
+
+<div class="form-container">
+
+<h2>➕ Add Product</h2>
+
+<div class="form-group">
+
+<label>Product Name</label>
+
+<input
+id="newProductName"
+placeholder="Enter product name">
+
+</div>
+
+<div class="form-group">
+
+<label>Category</label>
+
+<select id="newProductCategory">
+
+<option>Women</option>
+<option>Men</option>
+<option>Kids</option>
+<option>Footwear</option>
+<option>Accessories</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Price</label>
+
+<input
+type="number"
+id="newProductPrice"
+placeholder="Enter price">
+
+</div>
+
+<div class="form-group">
+
+<label>Description</label>
+
+<textarea
+id="newProductDescription">
+</textarea>
+
+</div>
+
+<button
+class="btn btn-success"
+onclick="addProduct()">
+
+Add Product
+
+</button>
+
+</div>
+
+
+<!-- PRODUCT MANAGEMENT -->
+
+<h2 style="color:#be185d;margin:40px 0 20px">
+
+📦 Product Management
+
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Product</th>
+<th>Category</th>
+<th>Price</th>
+<th>Action</th>
+
+</tr>
+
+<tr>
+
+<td>Floral Summer Dress</td>
+<td>Women</td>
+<td>₹1,499</td>
+
+<td>
+
+<button
+class="btn btn-warning"
+onclick="editProduct()">
+
+Edit
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="deleteProduct()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Premium Formal Shirt</td>
+<td>Men</td>
+<td>₹999</td>
+
+<td>
+
+<button
+class="btn btn-warning"
+onclick="editProduct()">
+
+Edit
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="deleteProduct()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Urban Sneakers</td>
+<td>Footwear</td>
+<td>₹1,799</td>
+
+<td>
+
+<button
+class="btn btn-warning"
+onclick="editProduct()">
+
+Edit
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="deleteProduct()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- CUSTOMER INFORMATION -->
+
+<h2 style="color:#be185d;margin:40px 0 20px">
+
+👥 Customer Information
+
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Orders</th>
+
+</tr>
+
+<tr>
+
+<td>Varshini</td>
+<td>varshini@example.com</td>
+<td>9876543210</td>
+<td>5</td>
+
+</tr>
+
+<tr>
+
+<td>Rahul</td>
+<td>rahul@example.com</td>
+<td>9876501234</td>
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>Anjali</td>
+<td>anjali@example.com</td>
+<td>9988776655</td>
+<td>7</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- ORDER MANAGEMENT -->
+
+<h2 style="color:#be185d;margin:40px 0 20px">
+
+🚚 Order Management
+
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Order ID</th>
+<th>Customer</th>
+<th>Product</th>
+<th>Amount</th>
+<th>Status</th>
+
+</tr>
+
+<tr>
+
+<td>SH10021</td>
+<td>Varshini</td>
+<td>Floral Summer Dress</td>
+<td>₹1,499</td>
+
+<td>
+
+<select onchange="changeOrderStatus(this)">
+
+<option>Delivered</option>
+<option>Shipped</option>
+<option>Processing</option>
+<option>Cancelled</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>SH10022</td>
+<td>Rahul</td>
+<td>Urban Sneakers</td>
+<td>₹1,799</td>
+
+<td>
+
+<select onchange="changeOrderStatus(this)">
+
+<option>Shipped</option>
+<option>Processing</option>
+<option>Delivered</option>
+<option>Cancelled</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<h3>StyleHub Fashion Store</h3>
+
+<p>
+Fashion • Style • Trends • Best Prices
+</p>
+
+<p>
+© 2026 StyleHub. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+let cart = [];
+
+let wishlist = [];
+
+let selectedProduct = null;
+
+
+/* PAGE NAVIGATION */
+
+function showPage(page){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(function(p){
+
+        p.classList.remove("active");
+
+    });
+
+    document
+    .getElementById(page)
+    .classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ADD TO CART */
+
+function addToCart(name,price){
+
+    cart.push({
+        name:name,
+        price:price
+    });
+
+    updateCart();
+
+    alert(
+        name +
+        " added to shopping cart!"
+    );
+
+}
+
+
+/* UPDATE CART */
+
+function updateCart(){
+
+    document.getElementById(
+        "cartCount"
+    ).innerText = cart.length;
+
+    let cartItems =
+    document.getElementById(
+        "cartItems"
+    );
+
+    if(cart.length === 0){
+
+        cartItems.innerHTML =
+        "<p style='text-align:center'>Your cart is empty.</p>";
+
+        document.getElementById(
+            "cartTotal"
+        ).innerText = "₹0";
+
+        return;
+    }
+
+    let html = "";
+
+    let total = 0;
+
+    cart.forEach(function(item,index){
+
+        total += item.price;
+
+        html += `
+
+        <div class="cart-item">
+
+        <div>
+
+        <h3>${item.name}</h3>
+
+        <p>₹${item.price.toLocaleString()}</p>
+
+        </div>
+
+        <button
+        class="btn btn-danger"
+        onclick="removeCartItem(${index})">
+
+        Remove
+
+        </button>
+
+        </div>
+
+        `;
+
+    });
+
+    cartItems.innerHTML = html;
+
+    document.getElementById(
+        "cartTotal"
+    ).innerText =
+    "₹" + total.toLocaleString();
+
+}
+
+
+/* REMOVE FROM CART */
+
+function removeCartItem(index){
+
+    cart.splice(index,1);
+
+    updateCart();
+
+}
+
+
+/* SEARCH */
+
+function searchProducts(){
+
+    let search =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    showPage("products");
+
+    let products =
+    document.querySelectorAll(
+        ".product-card"
+    );
+
+    products.forEach(function(product){
+
+        let name =
+        product.dataset.name.toLowerCase();
+
+        if(name.includes(search)){
+
+            product.style.display =
+            "block";
+
+        }else{
+
+            product.style.display =
+            "none";
+
+        }
+
+    });
+
+}
+
+
+/* CATEGORY FILTER */
+
+function filterCategory(category){
+
+    showPage("products");
+
+    let products =
+    document.querySelectorAll(
+        ".product-card"
+    );
+
+    products.forEach(function(product){
+
+        if(
+            product.dataset.category ===
+            category
+        ){
+
+            product.style.display =
+            "block";
+
+        }else{
+
+            product.style.display =
+            "none";
+
+        }
+
+    });
+
+}
+
+
+/* PRODUCT DETAILS */
+
+function viewProduct(
+    name,
+    category,
+    price,
+    description
+){
+
+    selectedProduct = {
+        name:name,
+        price:price
+    };
+
+    document.getElementById(
+        "detailName"
+    ).innerText = name;
+
+    document.getElementById(
+        "detailPrice"
+    ).innerText =
+    "₹" + price.toLocaleString();
+
+    document.getElementById(
+        "detailDescription"
+    ).innerText =
+    description;
+
+    showPage("details");
+
+}
+
+
+/* ADD DETAIL PRODUCT */
+
+function addDetailProduct(){
+
+    if(selectedProduct){
+
+        addToCart(
+            selectedProduct.name,
+            selectedProduct.price
+        );
+
+    }
+
+}
+
+
+/* WISHLIST */
+
+function addWishlist(name){
+
+    if(
+        wishlist.includes(name)
+    ){
+
+        alert(
+            "Already in your wishlist!"
+        );
+
+        return;
+
+    }
+
+    wishlist.push(name);
+
+    updateWishlist();
+
+    alert(
+        name +
+        " added to wishlist!"
+    );
+
+}
+
+
+/* UPDATE WISHLIST */
+
+function updateWishlist(){
+
+    let box =
+    document.getElementById(
+        "wishlistItems"
+    );
+
+    if(wishlist.length === 0){
+
+        box.innerHTML =
+        "<p style='text-align:center'>Your wishlist is empty.</p>";
+
+        return;
+
+    }
+
+    let html = "";
+
+    wishlist.forEach(function(name,index){
+
+        html += `
+
+        <div class="cart-item">
+
+        <h3>❤️ ${name}</h3>
+
+        <button
+        class="btn btn-danger"
+        onclick="removeWishlist(${index})">
+
+        Remove
+
+        </button>
+
+        </div>
+
+        `;
+
+    });
+
+    box.innerHTML = html;
+
+}
+
+
+/* REMOVE WISHLIST */
+
+function removeWishlist(index){
+
+    wishlist.splice(index,1);
+
+    updateWishlist();
+
+}
+
+
+/* CHECKOUT */
+
+function checkout(){
+
+    if(cart.length === 0){
+
+        alert(
+            "Your cart is empty!"
+        );
+
+        return;
+
+    }
+
+    showPage("checkout");
+
+}
+
+
+/* PLACE ORDER */
+
+function placeOrder(event){
+
+    event.preventDefault();
+
+    let orderID =
+    "SH" +
+    Math.floor(
+        10000 +
+        Math.random()*90000
+    );
+
+    alert(
+        "Order placed successfully! ✓\n\n" +
+
+        "Order ID: " +
+        orderID +
+
+        "\n\nPayment successful." +
+
+        "\nConfirmation email sent." +
+
+        "\nYour order is being processed."
+    );
+
+    cart = [];
+
+    updateCart();
+
+    showPage("orders");
+
+}
+
+
+/* LOGIN */
+
+function login(event){
+
+    event.preventDefault();
+
+    alert(
+        "Login successful!"
+    );
+
+    showPage("home");
+
+}
+
+
+/* REGISTER */
+
+function register(event){
+
+    event.preventDefault();
+
+    alert(
+        "Registration successful!"
+    );
+
+    showPage("login");
+
+}
+
+
+/* FORGOT PASSWORD */
+
+function forgotPassword(){
+
+    let email =
+    prompt(
+        "Enter your registered email:"
+    );
+
+    if(email){
+
+        alert(
+            "Password reset link sent to " +
+            email
+        );
+
+    }
+
+}
+
+
+/* PROFILE */
+
+function updateProfile(){
+
+    alert(
+        "Profile updated successfully!"
+    );
+
+}
+
+
+/* ADMIN LOGIN */
+
+function adminLogin(event){
+
+    event.preventDefault();
+
+    alert(
+        "Admin login successful!"
+    );
+
+}
+
+
+/* ADD PRODUCT */
+
+function addProduct(){
+
+    let name =
+    document.getElementById(
+        "newProductName"
+    ).value;
+
+    let category =
+    document.getElementById(
+        "newProductCategory"
+    ).value;
+
+    let price =
+    document.getElementById(
+        "newProductPrice"
+    ).value;
+
+    if(
+        name === "" ||
+        price === ""
+    ){
+
+        alert(
+            "Please enter product name and price."
+        );
+
+        return;
+
+    }
+
+    alert(
+        "Product added successfully!\n\n" +
+
+        "Product: " +
+        name +
+
+        "\nCategory: " +
+        category +
+
+        "\nPrice: ₹" +
+        price
+    );
+
+}
+
+
+/* EDIT PRODUCT */
+
+function editProduct(){
+
+    alert(
+        "Product opened for editing."
+    );
+
+}
+
+
+/* DELETE PRODUCT */
+
+function deleteProduct(){
+
+    let confirmDelete =
+    confirm(
+        "Are you sure you want to remove this product?"
+    );
+
+    if(confirmDelete){
+
+        alert(
+            "Product removed successfully."
+        );
+
+    }
+
+}
+
+
+/* ORDER STATUS */
+
+function changeOrderStatus(select){
+
+    alert(
+        "Order status updated to: " +
+        select.value
+    );
+
+}
+
+</script>
+
+</body>
+</html>
