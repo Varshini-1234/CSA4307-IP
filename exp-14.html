@@ -1,0 +1,2576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ReNewMarket - Second Hand Marketplace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f7f6;
+    color:#263238;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+button{
+    cursor:pointer;
+}
+
+.btn{
+    padding:10px 17px;
+    border:none;
+    border-radius:6px;
+    font-weight:bold;
+    margin:4px;
+}
+
+.primary{
+    background:#198754;
+    color:white;
+}
+
+.secondary{
+    background:#0d6efd;
+    color:white;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+}
+
+.warning{
+    background:#f59e0b;
+    color:white;
+}
+
+.dark{
+    background:#343a40;
+    color:white;
+}
+
+
+/* NAVBAR */
+
+.navbar{
+    background:#14532d;
+    color:white;
+    padding:17px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:27px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#86efac;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#86efac;
+}
+
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(
+        135deg,
+        #14532d,
+        #16a34a
+    );
+
+    color:white;
+    padding:80px 5%;
+}
+
+.hero-content{
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:46px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    max-width:700px;
+    font-size:18px;
+    line-height:1.7;
+}
+
+
+/* SEARCH */
+
+.search-box{
+    width:90%;
+    max-width:1100px;
+    margin:-35px auto 40px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 25px rgba(0,0,0,.12);
+    position:relative;
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
+}
+
+.search-grid input,
+.search-grid select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+
+/* SECTION */
+
+.section{
+    padding:50px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.section-title h2{
+    color:#14532d;
+    font-size:30px;
+}
+
+.section-title p{
+    color:#666;
+    margin-top:8px;
+}
+
+
+/* CARDS */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.card-icon{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    color:#14532d;
+    margin-bottom:10px;
+}
+
+.card p{
+    line-height:1.6;
+    color:#666;
+}
+
+
+/* LISTING */
+
+.listing-card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    transition:.2s;
+}
+
+.listing-card:hover{
+    transform:translateY(-5px);
+}
+
+.listing-image{
+    height:190px;
+    background:#dcfce7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:80px;
+}
+
+.listing-content{
+    padding:20px;
+}
+
+.listing-content h3{
+    color:#14532d;
+    margin-bottom:8px;
+}
+
+.price{
+    color:#198754;
+    font-size:22px;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.tags{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.tag{
+    background:#dcfce7;
+    color:#166534;
+    padding:5px 9px;
+    border-radius:5px;
+    font-size:12px;
+}
+
+
+/* FORM */
+
+.form-container{
+    max-width:650px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    color:#14532d;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+
+/* TABLE */
+
+.table-container{
+    overflow-x:auto;
+    background:white;
+    border-radius:8px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+
+th{
+    background:#14532d;
+    color:white;
+}
+
+
+/* FOOTER */
+
+footer{
+    background:#14532d;
+    color:white;
+    text-align:center;
+    padding:35px;
+    margin-top:50px;
+}
+
+footer p{
+    color:#bbf7d0;
+    margin-top:8px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+<div class="logo">
+♻️ ReNew<span>Market</span>
+</div>
+
+<ul class="nav-links">
+
+<li>
+<a onclick="showPage('home')">Home</a>
+</li>
+
+<li>
+<a onclick="showPage('listings')">Marketplace</a>
+</li>
+
+<li>
+<a onclick="showPage('categories')">Categories</a>
+</li>
+
+<li>
+<a onclick="showPage('sell')">Sell Item</a>
+</li>
+
+<li>
+<a onclick="showPage('orders')">My Orders</a>
+</li>
+
+<li>
+<a onclick="showPage('login')">Login</a>
+</li>
+
+<li>
+<a onclick="showPage('admin')">Admin</a>
+</li>
+
+</ul>
+
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>
+Buy Better. Sell Smarter. ♻️
+</h1>
+
+<p>
+ReNewMarket is a trusted second-hand marketplace
+where buyers and sellers can exchange pre-loved
+products while promoting sustainability.
+</p>
+
+<br>
+
+<button
+class="btn"
+style="background:white;color:#14532d"
+onclick="showPage('listings')">
+
+Explore Marketplace
+
+</button>
+
+<button
+class="btn"
+style="background:#bbf7d0;color:#14532d"
+onclick="showPage('sell')">
+
+Sell Your Item
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<h2 style="color:#14532d;margin-bottom:20px">
+
+🔎 Find Second-Hand Products
+
+</h2>
+
+<div class="search-grid">
+
+<input
+id="searchInput"
+placeholder="Search products">
+
+<select id="categoryFilter">
+
+<option value="">
+All Categories
+</option>
+
+<option>Electronics</option>
+
+<option>Furniture</option>
+
+<option>Clothing</option>
+
+<option>Collectibles</option>
+
+</select>
+
+<select id="priceFilter">
+
+<option value="">
+Price Range
+</option>
+
+<option>Below ₹1,000</option>
+
+<option>₹1,000 - ₹5,000</option>
+
+<option>₹5,000 - ₹20,000</option>
+
+<option>Above ₹20,000</option>
+
+</select>
+
+<button
+class="btn primary"
+onclick="searchItems()">
+
+Search
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CATEGORIES -->
+
+<div class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Popular Categories
+</h2>
+
+<p>
+Find quality pre-owned products
+</p>
+
+</div>
+
+
+<div class="card-grid">
+
+
+<div class="card">
+
+<div class="card-icon">
+📱
+</div>
+
+<h3>
+Electronics
+</h3>
+
+<p>
+Phones, laptops, tablets, cameras,
+headphones and other gadgets.
+</p>
+
+<button
+class="btn primary"
+onclick="showPage('listings')">
+
+Browse
+
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🛋️
+</div>
+
+<h3>
+Furniture
+</h3>
+
+<p>
+Tables, chairs, sofas, beds and
+home furniture.
+</p>
+
+<button
+class="btn primary"
+onclick="showPage('listings')">
+
+Browse
+
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+👕
+</div>
+
+<h3>
+Clothing
+</h3>
+
+<p>
+Pre-loved clothes, shoes, bags and
+fashion accessories.
+</p>
+
+<button
+class="btn primary"
+onclick="showPage('listings')">
+
+Browse
+
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🏺
+</div>
+
+<h3>
+Collectibles
+</h3>
+
+<p>
+Antiques, collectibles, artwork and
+rare items.
+</p>
+
+<button
+class="btn primary"
+onclick="showPage('listings')">
+
+Browse
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</section>
+
+
+<!-- ================= MARKETPLACE ================= -->
+
+<section id="listings" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+🛍️ ReNewMarket Listings
+</h2>
+
+<p>
+Quality second-hand products from trusted sellers
+</p>
+
+</div>
+
+
+<div class="card-grid">
+
+
+<!-- ITEM 1 -->
+
+<div class="listing-card">
+
+<div class="listing-image">
+📱
+</div>
+
+<div class="listing-content">
+
+<h3>
+iPhone 13
+</h3>
+
+<p>
+Excellent condition smartphone with original box.
+</p>
+
+<div class="price">
+₹38,000
+</div>
+
+<div class="tags">
+
+<span class="tag">
+Electronics
+</span>
+
+<span class="tag">
+Like New
+</span>
+
+</div>
+
+<button
+class="btn primary"
+onclick="buyItem('iPhone 13',38000)">
+
+Buy Now
+
+</button>
+
+<button
+class="btn warning"
+onclick="negotiate('iPhone 13')">
+
+Negotiate
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ITEM 2 -->
+
+<div class="listing-card">
+
+<div class="listing-image">
+💻
+</div>
+
+<div class="listing-content">
+
+<h3>
+Dell Laptop
+</h3>
+
+<p>
+Good condition laptop suitable for students.
+</p>
+
+<div class="price">
+₹28,500
+</div>
+
+<div class="tags">
+
+<span class="tag">
+Electronics
+</span>
+
+<span class="tag">
+Good Condition
+</span>
+
+</div>
+
+<button
+class="btn primary"
+onclick="buyItem('Dell Laptop',28500)">
+
+Buy Now
+
+</button>
+
+<button
+class="btn warning"
+onclick="negotiate('Dell Laptop')">
+
+Negotiate
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ITEM 3 -->
+
+<div class="listing-card">
+
+<div class="listing-image">
+🛋️
+</div>
+
+<div class="listing-content">
+
+<h3>
+Wooden Sofa Set
+</h3>
+
+<p>
+Strong wooden sofa set in good condition.
+</p>
+
+<div class="price">
+₹12,000
+</div>
+
+<div class="tags">
+
+<span class="tag">
+Furniture
+</span>
+
+<span class="tag">
+Used
+</span>
+
+</div>
+
+<button
+class="btn primary"
+onclick="buyItem('Wooden Sofa Set',12000)">
+
+Buy Now
+
+</button>
+
+<button
+class="btn warning"
+onclick="negotiate('Wooden Sofa Set')">
+
+Negotiate
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ITEM 4 -->
+
+<div class="listing-card">
+
+<div class="listing-image">
+👕
+</div>
+
+<div class="listing-content">
+
+<h3>
+Branded Jacket
+</h3>
+
+<p>
+Gently used branded winter jacket.
+</p>
+
+<div class="price">
+₹1,800
+</div>
+
+<div class="tags">
+
+<span class="tag">
+Clothing
+</span>
+
+<span class="tag">
+Good Condition
+</span>
+
+</div>
+
+<button
+class="btn primary"
+onclick="buyItem('Branded Jacket',1800)">
+
+Buy Now
+
+</button>
+
+<button
+class="btn warning"
+onclick="negotiate('Branded Jacket')">
+
+Negotiate
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ITEM 5 -->
+
+<div class="listing-card">
+
+<div class="listing-image">
+⌚
+</div>
+
+<div class="listing-content">
+
+<h3>
+Smart Watch
+</h3>
+
+<p>
+Smart watch with charger and accessories.
+</p>
+
+<div class="price">
+₹2,500
+</div>
+
+<div class="tags">
+
+<span class="tag">
+Electronics
+</span>
+
+<span class="tag">
+Used
+</span>
+
+</div>
+
+<button
+class="btn primary"
+onclick="buyItem('Smart Watch',2500)">
+
+Buy Now
+
+</button>
+
+<button
+class="btn warning"
+onclick="negotiate('Smart Watch')">
+
+Negotiate
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ITEM 6 -->
+
+<div class="listing-card">
+
+<div class="listing-image">
+🏺
+</div>
+
+<div class="listing-content">
+
+<h3>
+Antique Vase
+</h3>
+
+<p>
+Beautiful decorative antique collectible.
+</p>
+
+<div class="price">
+₹5,500
+</div>
+
+<div class="tags">
+
+<span class="tag">
+Collectible
+</span>
+
+<span class="tag">
+Antique
+</span>
+
+</div>
+
+<button
+class="btn primary"
+onclick="buyItem('Antique Vase',5500)">
+
+Buy Now
+
+</button>
+
+<button
+class="btn warning"
+onclick="negotiate('Antique Vase')">
+
+Negotiate
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section id="categories" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+📂 Category Management
+</h2>
+
+<p>
+Browse all available marketplace categories
+</p>
+
+</div>
+
+
+<div class="card-grid">
+
+
+<div class="card">
+
+<div class="card-icon">
+📱
+</div>
+
+<h3>
+Electronics
+</h3>
+
+<p>
+Smartphones<br>
+Laptops<br>
+Tablets<br>
+Cameras<br>
+Headphones
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🛋️
+</div>
+
+<h3>
+Furniture
+</h3>
+
+<p>
+Sofas<br>
+Tables<br>
+Chairs<br>
+Beds<br>
+Cupboards
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+👗
+</div>
+
+<h3>
+Clothing
+</h3>
+
+<p>
+Men's Wear<br>
+Women's Wear<br>
+Kids Wear<br>
+Shoes<br>
+Accessories
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🏺
+</div>
+
+<h3>
+Collectibles
+</h3>
+
+<p>
+Antiques<br>
+Artwork<br>
+Coins<br>
+Decorative Items<br>
+Rare Collections
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SELL ITEM ================= -->
+
+<section id="sell" class="page section">
+
+<div class="form-container">
+
+<h2>
+📦 Create New Listing
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Product Name
+</label>
+
+<input
+id="sellName"
+placeholder="Enter product name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Category
+</label>
+
+<select id="sellCategory">
+
+<option>Electronics</option>
+
+<option>Furniture</option>
+
+<option>Clothing</option>
+
+<option>Collectibles</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Price
+</label>
+
+<input
+id="sellPrice"
+type="number"
+placeholder="Enter price">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Product Description
+</label>
+
+<textarea
+id="sellDescription"
+rows="5"
+placeholder="Describe your product">
+
+</textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Product Condition
+</label>
+
+<select>
+
+<option>Like New</option>
+
+<option>Excellent</option>
+
+<option>Good</option>
+
+<option>Used</option>
+
+</select>
+
+</div>
+
+
+<button
+class="btn primary"
+onclick="createListing()">
+
+Publish Listing
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= ORDERS ================= -->
+
+<section id="orders" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+📦 My Transactions
+</h2>
+
+<p>
+Track your purchases and deliveries
+</p>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Order ID
+</th>
+
+<th>
+Item
+</th>
+
+<th>
+Price
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Logistics Status
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+RN1001
+</td>
+
+<td>
+iPhone 13
+</td>
+
+<td>
+₹38,000
+</td>
+
+<td>
+08 Aug 2026
+</td>
+
+<td>
+
+<span style="color:#0d6efd">
+Shipped
+</span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+RN1002
+</td>
+
+<td>
+Branded Jacket
+</td>
+
+<td>
+₹1,800
+</td>
+
+<td>
+05 Aug 2026
+</td>
+
+<td>
+
+<span style="color:#198754">
+Received
+</span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+RN1003
+</td>
+
+<td>
+Smart Watch
+</td>
+
+<td>
+₹2,500
+</td>
+
+<td>
+01 Aug 2026
+</td>
+
+<td>
+
+<span style="color:#198754">
+Received
+</span>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login" class="page section">
+
+<div class="form-container">
+
+<h2>
+🔐 User Login
+</h2>
+
+
+<form onsubmit="login(event)">
+
+<div class="form-group">
+
+<label>
+Username / Email
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input
+type="password"
+required>
+
+</div>
+
+
+<button class="btn primary">
+Login
+</button>
+
+</form>
+
+
+<p style="text-align:center;margin-top:20px">
+
+New user?
+
+<a
+href="#"
+onclick="showPage('register')">
+
+Register
+
+</a>
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= REGISTER ================= -->
+
+<section id="register" class="page section">
+
+<div class="form-container">
+
+<h2>
+📝 User Registration
+</h2>
+
+
+<form onsubmit="register(event)">
+
+<div class="form-group">
+
+<label>
+Full Name
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+type="email"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Phone
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input
+type="password"
+required>
+
+</div>
+
+
+<button class="btn primary">
+Create Account
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section id="admin" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+⚙️ Administrator Dashboard
+</h2>
+
+<p>
+Manage users, categories, commodities and orders
+</p>
+
+</div>
+
+
+<!-- ADMIN LOGIN -->
+
+<div class="form-container">
+
+<h2>
+Administrator Login
+</h2>
+
+
+<form onsubmit="adminLogin(event)">
+
+<div class="form-group">
+
+<label>
+Admin Username
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Admin Password
+</label>
+
+<input
+type="password"
+required>
+
+</div>
+
+
+<button class="btn dark">
+Admin Login
+</button>
+
+</form>
+
+</div>
+
+
+<!-- USER MANAGEMENT -->
+
+<h2
+style="
+color:#14532d;
+margin:40px 0 20px;
+">
+
+👥 User Management
+
+</h2>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+User ID
+</th>
+
+<th>
+Name
+</th>
+
+<th>
+Email
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+U001
+</td>
+
+<td>
+Varshini
+</td>
+
+<td>
+varshini@example.com
+</td>
+
+<td>
+Active
+</td>
+
+<td>
+
+<button
+class="btn warning"
+onclick="editUser()">
+
+Edit
+
+</button>
+
+<button
+class="btn danger"
+onclick="deleteUser()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+U002
+</td>
+
+<td>
+Rahul
+</td>
+
+<td>
+rahul@example.com
+</td>
+
+<td>
+Active
+</td>
+
+<td>
+
+<button
+class="btn warning"
+onclick="editUser()">
+
+Edit
+
+</button>
+
+<button
+class="btn danger"
+onclick="deleteUser()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- CATEGORY MANAGEMENT -->
+
+<h2
+style="
+color:#14532d;
+margin:40px 0 20px;
+">
+
+📂 Category Management
+
+</h2>
+
+
+<div class="form-container">
+
+<div class="form-group">
+
+<label>
+New Category
+</label>
+
+<input
+id="newCategory"
+placeholder="Enter category">
+
+</div>
+
+
+<button
+class="btn primary"
+onclick="addCategory()">
+
+Add Category
+
+</button>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Category ID
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+C001
+</td>
+
+<td>
+Electronics
+</td>
+
+<td>
+
+<button
+class="btn danger"
+onclick="deleteCategory()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+C002
+</td>
+
+<td>
+Furniture
+</td>
+
+<td>
+
+<button
+class="btn danger"
+onclick="deleteCategory()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+C003
+</td>
+
+<td>
+Clothing
+</td>
+
+<td>
+
+<button
+class="btn danger"
+onclick="deleteCategory()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- COMMODITY MANAGEMENT -->
+
+<h2
+style="
+color:#14532d;
+margin:40px 0 20px;
+">
+
+📦 Commodity Management
+
+</h2>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Item
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Price
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+iPhone 13
+</td>
+
+<td>
+Electronics
+</td>
+
+<td>
+₹38,000
+</td>
+
+<td>
+
+<button
+class="btn warning"
+onclick="editCommodity()">
+
+Edit
+
+</button>
+
+<button
+class="btn danger"
+onclick="deleteCommodity()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Wooden Sofa Set
+</td>
+
+<td>
+Furniture
+</td>
+
+<td>
+₹12,000
+</td>
+
+<td>
+
+<button
+class="btn warning"
+onclick="editCommodity()">
+
+Edit
+
+</button>
+
+<button
+class="btn danger"
+onclick="deleteCommodity()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- ORDER MANAGEMENT -->
+
+<h2
+style="
+color:#14532d;
+margin:40px 0 20px;
+">
+
+🚚 Order Management
+
+</h2>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Order ID
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Item
+</th>
+
+<th>
+Logistics Status
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+RN1001
+</td>
+
+<td>
+Varshini
+</td>
+
+<td>
+iPhone 13
+</td>
+
+<td>
+
+<select>
+
+<option>
+Shipped
+</option>
+
+<option>
+Received
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<button
+class="btn success"
+onclick="updateOrder()">
+
+Update
+
+</button>
+
+<button
+class="btn danger"
+onclick="deleteOrder()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+RN1002
+</td>
+
+<td>
+Rahul
+</td>
+
+<td>
+Branded Jacket
+</td>
+
+<td>
+
+<select>
+
+<option>
+Received
+</option>
+
+<option>
+Shipped
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<button
+class="btn success"
+onclick="updateOrder()">
+
+Update
+
+</button>
+
+<button
+class="btn danger"
+onclick="deleteOrder()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<h3>
+♻️ ReNewMarket
+</h3>
+
+<p>
+Buy • Sell • Reuse • Recycle
+</p>
+
+<p>
+© 2026 ReNewMarket. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+/* PAGE NAVIGATION */
+
+function showPage(page){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(function(p){
+
+        p.classList.remove("active");
+
+    });
+
+
+    document
+    .getElementById(page)
+    .classList.add("active");
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* SEARCH */
+
+function searchItems(){
+
+    let search =
+    document.getElementById(
+        "searchInput"
+    ).value;
+
+    let category =
+    document.getElementById(
+        "categoryFilter"
+    ).value;
+
+    let price =
+    document.getElementById(
+        "priceFilter"
+    ).value;
+
+
+    if(
+        search === "" &&
+        category === "" &&
+        price === ""
+    ){
+
+        alert(
+            "Please enter a search option."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+
+        "Search completed!\n\n" +
+
+        "Item: " +
+        (search || "All") +
+
+        "\nCategory: " +
+        (category || "All") +
+
+        "\nPrice: " +
+        (price || "All")
+
+    );
+
+
+    showPage("listings");
+
+}
+
+
+/* BUY ITEM */
+
+function buyItem(name,price){
+
+    let confirmBuy =
+    confirm(
+
+        "Buy " +
+        name +
+        " for ₹" +
+        price +
+        "?"
+
+    );
+
+
+    if(confirmBuy){
+
+        alert(
+
+            "Purchase successful!\n\n" +
+
+            "Item: " +
+            name +
+
+            "\nPrice: ₹" +
+            price +
+
+            "\nOrder will be processed shortly."
+
+        );
+
+
+        showPage("orders");
+
+    }
+
+}
+
+
+/* NEGOTIATE */
+
+function negotiate(item){
+
+    let offer =
+    prompt(
+
+        "Enter your offer price for " +
+        item +
+        ":"
+
+    );
+
+
+    if(offer){
+
+        alert(
+
+            "Your offer of ₹" +
+            offer +
+            " has been sent to the seller."
+
+        );
+
+    }
+
+}
+
+
+/* CREATE LISTING */
+
+function createListing(){
+
+    let name =
+    document.getElementById(
+        "sellName"
+    ).value;
+
+    let category =
+    document.getElementById(
+        "sellCategory"
+    ).value;
+
+    let price =
+    document.getElementById(
+        "sellPrice"
+    ).value;
+
+    let description =
+    document.getElementById(
+        "sellDescription"
+    ).value;
+
+
+    if(
+        name === "" ||
+        price === "" ||
+        description === ""
+    ){
+
+        alert(
+            "Please fill all listing details."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+
+        "Listing created successfully!\n\n" +
+
+        "Product: " +
+        name +
+
+        "\nCategory: " +
+        category +
+
+        "\nPrice: ₹" +
+        price
+
+    );
+
+
+    showPage("listings");
+
+}
+
+
+/* USER LOGIN */
+
+function login(event){
+
+    event.preventDefault();
+
+
+    alert(
+        "Login successful!"
+    );
+
+
+    showPage("home");
+
+}
+
+
+/* USER REGISTER */
+
+function register(event){
+
+    event.preventDefault();
+
+
+    alert(
+        "Registration successful! Please login."
+    );
+
+
+    showPage("login");
+
+}
+
+
+/* ADMIN LOGIN */
+
+function adminLogin(event){
+
+    event.preventDefault();
+
+
+    alert(
+        "Administrator login successful!"
+    );
+
+}
+
+
+/* EDIT USER */
+
+function editUser(){
+
+    alert(
+        "User details can now be edited."
+    );
+
+}
+
+
+/* DELETE USER */
+
+function deleteUser(){
+
+    if(
+        confirm(
+            "Delete this user?"
+        )
+    ){
+
+        alert(
+            "User deleted successfully."
+        );
+
+    }
+
+}
+
+
+/* ADD CATEGORY */
+
+function addCategory(){
+
+    let category =
+    document.getElementById(
+        "newCategory"
+    ).value;
+
+
+    if(category === ""){
+
+        alert(
+            "Enter category name."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+
+        "Category '" +
+        category +
+        "' added successfully."
+
+    );
+
+}
+
+
+/* DELETE CATEGORY */
+
+function deleteCategory(){
+
+    if(
+        confirm(
+            "Delete this category?"
+        )
+    ){
+
+        alert(
+            "Category deleted successfully."
+        );
+
+    }
+
+}
+
+
+/* EDIT COMMODITY */
+
+function editCommodity(){
+
+    let price =
+    prompt(
+        "Enter updated price:"
+    );
+
+
+    if(price){
+
+        alert(
+            "Commodity price updated to ₹" +
+            price
+        );
+
+    }
+
+}
+
+
+/* DELETE COMMODITY */
+
+function deleteCommodity(){
+
+    if(
+        confirm(
+            "Delete this commodity?"
+        )
+    ){
+
+        alert(
+            "Commodity deleted successfully."
+        );
+
+    }
+
+}
+
+
+/* UPDATE ORDER */
+
+function updateOrder(){
+
+    alert(
+        "Logistics status updated successfully."
+    );
+
+}
+
+
+/* DELETE ORDER */
+
+function deleteOrder(){
+
+    if(
+        confirm(
+            "Delete this order?"
+        )
+    ){
+
+        alert(
+            "Order deleted successfully."
+        );
+
+    }
+
+}
+
+
+console.log(
+    "ReNewMarket loaded successfully."
+);
+
+</script>
+
+</body>
+</html>
