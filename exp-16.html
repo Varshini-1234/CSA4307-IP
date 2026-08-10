@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ComplainEase - Complaint Management System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#263238;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:#173b57;
+    color:white;
+    padding:16px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ffb703;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#ffb703;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#173b57,#2878a8);
+    color:white;
+    padding:80px 5%;
+}
+
+.hero-content{
+    max-width:1100px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:46px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    max-width:720px;
+    font-size:18px;
+    line-height:1.7;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section{
+    padding:50px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.section-title h2{
+    color:#173b57;
+    font-size:30px;
+}
+
+.section-title p{
+    color:#666;
+    margin-top:8px;
+}
+
+/* BUTTONS */
+
+.btn{
+    border:none;
+    padding:11px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:4px;
+}
+
+.primary{
+    background:#173b57;
+    color:white;
+}
+
+.success{
+    background:#198754;
+    color:white;
+}
+
+.warning{
+    background:#f59e0b;
+    color:white;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+}
+
+.info{
+    background:#2878a8;
+    color:white;
+}
+
+/* CARDS */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    color:#173b57;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#666;
+    line-height:1.6;
+}
+
+/* FORM */
+
+.form-container{
+    max-width:700px;
+    margin:35px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    color:#173b57;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #d5dce2;
+    border-radius:6px;
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.stat h2{
+    color:#173b57;
+    font-size:30px;
+}
+
+.stat p{
+    color:#666;
+    margin-top:8px;
+}
+
+/* TABLE */
+
+.table-container{
+    overflow-x:auto;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+
+th{
+    background:#173b57;
+    color:white;
+}
+
+.status{
+    font-weight:bold;
+}
+
+.pending{
+    color:#f59e0b;
+}
+
+.progress{
+    color:#2878a8;
+}
+
+.resolved{
+    color:#198754;
+}
+
+/* LOCATION */
+
+.map-box{
+    height:250px;
+    background:
+    linear-gradient(
+        45deg,
+        #dcecf5 25%,
+        #c9e0ec 25%,
+        #c9e0ec 50%,
+        #dcecf5 50%,
+        #dcecf5 75%,
+        #c9e0ec 75%
+    );
+    background-size:40px 40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:10px;
+    margin-top:20px;
+    color:#173b57;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* BADGE */
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.badge-pending{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.badge-progress{
+    background:#cfe8ff;
+    color:#075985;
+}
+
+.badge-resolved{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+/* FOOTER */
+
+footer{
+    background:#173b57;
+    color:white;
+    text-align:center;
+    padding:35px;
+    margin-top:50px;
+}
+
+footer p{
+    color:#cfe4f7;
+    margin-top:8px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+<div class="logo">
+📢 Complain<span>Ease</span>
+</div>
+
+<ul class="nav-links">
+
+<li>
+<a onclick="showPage('home')">Home</a>
+</li>
+
+<li>
+<a onclick="showPage('dashboard')">Dashboard</a>
+</li>
+
+<li>
+<a onclick="showPage('complaint')">Post Complaint</a>
+</li>
+
+<li>
+<a onclick="showPage('status')">Complaint Status</a>
+</li>
+
+<li>
+<a onclick="showPage('login')">Login</a>
+</li>
+
+<li>
+<a onclick="showPage('officer')">Officer</a>
+</li>
+
+<li>
+<a onclick="showPage('admin')">Admin</a>
+</li>
+
+</ul>
+
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>
+Your Voice Matters.
+</h1>
+
+<p>
+ComplainEase is an online complaint management
+platform that helps users submit, track and resolve
+complaints quickly and transparently.
+</p>
+
+<br>
+
+<button
+class="btn"
+style="background:white;color:#173b57"
+onclick="showPage('complaint')">
+
+Post a Complaint
+
+</button>
+
+<button
+class="btn"
+style="background:#ffb703;color:#173b57"
+onclick="showPage('status')">
+
+Track Complaint
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+How ComplainEase Works
+</h2>
+
+<p>
+Simple and transparent complaint resolution
+</p>
+
+</div>
+
+
+<div class="card-grid">
+
+
+<div class="card">
+
+<div class="card-icon">
+📝
+</div>
+
+<h3>
+Register Complaint
+</h3>
+
+<p>
+Submit your complaint with category,
+description and supporting information.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+📍
+</div>
+
+<h3>
+Mark Location
+</h3>
+
+<p>
+Provide the location related to your complaint
+for faster resolution.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🔎
+</div>
+
+<h3>
+Track Status
+</h3>
+
+<p>
+Check your complaint status and receive
+updates from the responsible officer.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+✅
+</div>
+
+<h3>
+Get Resolution
+</h3>
+
+<p>
+Officers update the status and provide
+proof of completed work.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+📊 User Dashboard
+</h2>
+
+<p>
+Manage your complaints
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="stat">
+
+<h2>
+5
+</h2>
+
+<p>
+Total Complaints
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+2
+</h2>
+
+<p>
+Pending
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+1
+</h2>
+
+<p>
+In Progress
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+2
+</h2>
+
+<p>
+Resolved
+</p>
+
+</div>
+
+</div>
+
+
+<br><br>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Complaint ID
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Location
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1001
+</td>
+
+<td>
+Road Damage
+</td>
+
+<td>
+Chennai
+</td>
+
+<td>
+08 Aug 2026
+</td>
+
+<td>
+<span class="badge badge-progress">
+In Progress
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1002
+</td>
+
+<td>
+Street Light
+</td>
+
+<td>
+Tambaram
+</td>
+
+<td>
+05 Aug 2026
+</td>
+
+<td>
+<span class="badge badge-resolved">
+Resolved
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1003
+</td>
+
+<td>
+Water Supply
+</td>
+
+<td>
+Chennai
+</td>
+
+<td>
+03 Aug 2026
+</td>
+
+<td>
+<span class="badge badge-pending">
+Pending
+</span>
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= REGISTER ================= -->
+
+<section id="register" class="page section">
+
+<div class="form-container">
+
+<h2>
+📝 User Registration
+</h2>
+
+<form onsubmit="register(event)">
+
+<div class="form-group">
+
+<label>
+Full Name
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input type="email" required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mobile Number
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input type="password" required>
+
+</div>
+
+
+<button class="btn primary">
+Register
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login" class="page section">
+
+<div class="form-container">
+
+<h2>
+🔐 User Login
+</h2>
+
+
+<form onsubmit="login(event)">
+
+<div class="form-group">
+
+<label>
+Username / Email
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input type="password" required>
+
+</div>
+
+
+<button class="btn primary">
+Login
+</button>
+
+</form>
+
+
+<p style="text-align:center;margin-top:20px">
+
+New User?
+
+<a
+href="#"
+onclick="showPage('register')">
+
+Register Here
+
+</a>
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= POST COMPLAINT ================= -->
+
+<section id="complaint" class="page section">
+
+<div class="form-container">
+
+<h2>
+📝 Register a Complaint
+</h2>
+
+
+<form onsubmit="submitComplaint(event)">
+
+
+<div class="form-group">
+
+<label>
+Complaint Category
+</label>
+
+<select id="category" required>
+
+<option value="">
+Select Category
+</option>
+
+<option>
+Road Damage
+</option>
+
+<option>
+Water Supply
+</option>
+
+<option>
+Street Light
+</option>
+
+<option>
+Garbage Collection
+</option>
+
+<option>
+Electricity
+</option>
+
+<option>
+Public Transport
+</option>
+
+<option>
+Other
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Complaint Title
+</label>
+
+<input
+id="title"
+placeholder="Enter complaint title"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Complaint Description
+</label>
+
+<textarea
+id="description"
+placeholder="Describe your complaint..."
+required></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Location
+</label>
+
+<input
+id="location"
+placeholder="Enter complaint location"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Supporting Document / Proof</label>
+
+<input type="file">
+
+</div>
+
+
+<div class="map-box">
+
+📍 Google Map Location
+
+</div>
+
+
+<br>
+
+
+<button
+type="button"
+class="btn info"
+onclick="markLocation()">
+
+📍 Mark Location
+
+</button>
+
+
+<button class="btn primary">
+
+Submit Complaint
+
+</button>
+
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= STATUS ================= -->
+
+<section id="status" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+🔎 Complaint Status
+</h2>
+
+<p>
+Track your complaint using Complaint ID
+</p>
+
+</div>
+
+
+<div class="form-container">
+
+<div class="form-group">
+
+<label>
+Complaint ID
+</label>
+
+<input
+id="complaintId"
+placeholder="Example: CMP1001">
+
+</div>
+
+
+<button
+class="btn primary"
+onclick="trackComplaint()">
+
+Track Complaint
+
+</button>
+
+
+<div
+id="statusResult"
+style="margin-top:25px">
+
+</div>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Complaint ID
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Officer
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Last Update
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1001
+</td>
+
+<td>
+Road Damage
+</td>
+
+<td>
+Officer Kumar
+</td>
+
+<td>
+<span class="badge badge-progress">
+In Progress
+</span>
+</td>
+
+<td>
+08 Aug 2026
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1002
+</td>
+
+<td>
+Street Light
+</td>
+
+<td>
+Officer Priya
+</td>
+
+<td>
+<span class="badge badge-resolved">
+Resolved
+</span>
+</td>
+
+<td>
+07 Aug 2026
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FEEDBACK ================= -->
+
+<section id="feedback" class="page section">
+
+<div class="form-container">
+
+<h2>
+⭐ Feedback
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Complaint ID
+</label>
+
+<input placeholder="Enter complaint ID">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Rating
+</label>
+
+<select>
+
+<option>★★★★★ - Excellent</option>
+
+<option>★★★★ - Very Good</option>
+
+<option>★★★ - Good</option>
+
+<option>★★ - Average</option>
+
+<option>★ - Poor</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Your Feedback
+</label>
+
+<textarea
+placeholder="Write your feedback..."></textarea>
+
+</div>
+
+
+<button
+class="btn success"
+onclick="submitFeedback()">
+
+Submit Feedback
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= OFFICER ================= -->
+
+<section id="officer" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+👮 Officer Panel
+</h2>
+
+<p>
+Manage and resolve assigned complaints
+</p>
+
+</div>
+
+
+<div class="form-container">
+
+<h2>
+Officer Login
+</h2>
+
+
+<form onsubmit="officerLogin(event)">
+
+<div class="form-group">
+
+<label>
+Officer ID
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input type="password" required>
+
+</div>
+
+
+<button class="btn primary">
+Login
+</button>
+
+</form>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Complaint ID
+</th>
+
+<th>
+User
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Location
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1001
+</td>
+
+<td>
+Varshini
+</td>
+
+<td>
+Road Damage
+</td>
+
+<td>
+Chennai
+</td>
+
+<td>
+<span class="badge badge-progress">
+In Progress
+</span>
+</td>
+
+<td>
+
+<button
+class="btn success"
+onclick="updateComplaint()">
+
+Update
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1003
+</td>
+
+<td>
+Rahul
+</td>
+
+<td>
+Water Supply
+</td>
+
+<td>
+Tambaram
+</td>
+
+<td>
+<span class="badge badge-pending">
+Pending
+</span>
+</td>
+
+<td>
+
+<button
+class="btn info"
+onclick="viewComplaint()">
+
+View
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="form-container">
+
+<h2>
+📸 Update Proof of Work
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Complaint ID
+</label>
+
+<input
+placeholder="CMP1001">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Update Status
+</label>
+
+<select>
+
+<option>
+Pending
+</option>
+
+<option>
+In Progress
+</option>
+
+<option>
+Resolved
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Proof of Work
+</label>
+
+<input type="file">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Officer Remarks
+</label>
+
+<textarea
+placeholder="Enter resolution details..."></textarea>
+
+</div>
+
+
+<button
+class="btn success"
+onclick="saveOfficerUpdate()">
+
+Save Update
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section id="admin" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+⚙️ Administrator Panel
+</h2>
+
+<p>
+Complete complaint management administration
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="stat">
+
+<h2>
+125
+</h2>
+
+<p>
+Total Users
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+18
+</h2>
+
+<p>
+Officers
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+42
+</h2>
+
+<p>
+Pending Complaints
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+83
+</h2>
+
+<p>
+Resolved Complaints
+</p>
+
+</div>
+
+</div>
+
+
+<div class="form-container">
+
+<h2>
+🔐 Admin Login
+</h2>
+
+
+<form onsubmit="adminLogin(event)">
+
+<div class="form-group">
+
+<label>
+Admin Username
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input type="password" required>
+
+</div>
+
+
+<button class="btn primary">
+Admin Login
+</button>
+
+</form>
+
+</div>
+
+
+<!-- OFFICER MANAGEMENT -->
+
+<h2 style="color:#173b57;margin:40px 0 20px">
+👮 Officer Account Management
+</h2>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Officer ID
+</th>
+
+<th>
+Name
+</th>
+
+<th>
+Department
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+OFF1001
+</td>
+
+<td>
+Kumar
+</td>
+
+<td>
+Public Works
+</td>
+
+<td>
+Active
+</td>
+
+<td>
+
+<button
+class="btn warning"
+onclick="changePassword()">
+
+Change Password
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+OFF1002
+</td>
+
+<td>
+Priya
+</td>
+
+<td>
+Municipal Services
+</td>
+
+<td>
+Active
+</td>
+
+<td>
+
+<button
+class="btn danger"
+onclick="deleteOfficer()">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- CREATE OFFICER -->
+
+<div class="form-container">
+
+<h2>
+➕ Create Officer Account
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Officer Name
+</label>
+
+<input
+id="officerName"
+placeholder="Enter officer name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Department
+</label>
+
+<input
+id="department"
+placeholder="Enter department">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Officer ID
+</label>
+
+<input
+id="officerId"
+placeholder="Generate officer ID">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input
+type="password"
+id="officerPassword"
+placeholder="Create password">
+
+</div>
+
+
+<button
+class="btn primary"
+onclick="createOfficer()">
+
+Create Officer
+
+</button>
+
+</div>
+
+
+<!-- COMPLAINT MANAGEMENT -->
+
+<h2 style="color:#173b57;margin:40px 0 20px">
+📋 All Complaints
+</h2>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+ID
+</th>
+
+<th>
+User
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Officer
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1001
+</td>
+
+<td>
+Varshini
+</td>
+
+<td>
+Road Damage
+</td>
+
+<td>
+Kumar
+</td>
+
+<td>
+In Progress
+</td>
+
+<td>
+
+<button
+class="btn info"
+onclick="viewComplaint()">
+
+View
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+CMP1002
+</td>
+
+<td>
+Rahul
+</td>
+
+<td>
+Street Light
+</td>
+
+<td>
+Priya
+</td>
+
+<td>
+Resolved
+</td>
+
+<td>
+
+<button
+class="btn success"
+onclick="viewComplaint()">
+
+View
+
+</button>
+
+</td>
+
+</tr>
+
+
+</table>
+
+</div>
+
+
+<!-- ADMIN CONTACT -->
+
+<div class="card" style="margin-top:30px">
+
+<h3>
+📞 Admin Contact Details
+</h3>
+
+<p>
+Email: admin@complainease.com
+</p>
+
+<p>
+Phone: +91 98765 43210
+</p>
+
+<p>
+Working Hours: 9:00 AM - 6:00 PM
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<h3>
+📢 ComplainEase
+</h3>
+
+<p>
+Making complaint resolution simple, transparent and efficient.
+</p>
+
+<p>
+© 2026 ComplainEase. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+/* PAGE NAVIGATION */
+
+function showPage(page){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(function(p){
+
+        p.classList.remove("active");
+
+    });
+
+
+    document
+    .getElementById(page)
+    .classList.add("active");
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* USER LOGIN */
+
+function login(event){
+
+    event.preventDefault();
+
+    alert(
+        "Login successful!"
+    );
+
+    showPage("dashboard");
+
+}
+
+
+/* REGISTER */
+
+function register(event){
+
+    event.preventDefault();
+
+    alert(
+        "Registration successful! Please login."
+    );
+
+    showPage("login");
+
+}
+
+
+/* SUBMIT COMPLAINT */
+
+function submitComplaint(event){
+
+    event.preventDefault();
+
+
+    let category =
+    document.getElementById(
+        "category"
+    ).value;
+
+
+    let title =
+    document.getElementById(
+        "title"
+    ).value;
+
+
+    let location =
+    document.getElementById(
+        "location"
+    ).value;
+
+
+    if(
+        category === "" ||
+        title === "" ||
+        location === ""
+    ){
+
+        alert(
+            "Please fill all required fields."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Complaint submitted successfully!\n\n" +
+        "Complaint ID: CMP1004"
+    );
+
+
+    showPage("status");
+
+}
+
+
+/* MARK LOCATION */
+
+function markLocation(){
+
+    alert(
+        "Location marked successfully on Google Map!"
+    );
+
+}
+
+
+/* TRACK COMPLAINT */
+
+function trackComplaint(){
+
+    let id =
+    document.getElementById(
+        "complaintId"
+    ).value;
+
+
+    let result =
+    document.getElementById(
+        "statusResult"
+    );
+
+
+    if(id === ""){
+
+        result.innerHTML =
+        "<p style='color:red'>Please enter Complaint ID.</p>";
+
+        return;
+
+    }
+
+
+    if(id === "CMP1001"){
+
+        result.innerHTML =
+
+        "<div class='card'>" +
+
+        "<h3>Complaint CMP1001</h3>" +
+
+        "<p><b>Category:</b> Road Damage</p>" +
+
+        "<p><b>Location:</b> Chennai</p>" +
+
+        "<p><b>Officer:</b> Officer Kumar</p>" +
+
+        "<p><b>Status:</b> " +
+
+        "<span class='badge badge-progress'>" +
+        "In Progress" +
+        "</span>" +
+
+        "</p>" +
+
+        "</div>";
+
+    }
+
+    else if(id === "CMP1002"){
+
+        result.innerHTML =
+
+        "<div class='card'>" +
+
+        "<h3>Complaint CMP1002</h3>" +
+
+        "<p><b>Category:</b> Street Light</p>" +
+
+        "<p><b>Location:</b> Tambaram</p>" +
+
+        "<p><b>Officer:</b> Officer Priya</p>" +
+
+        "<p><b>Status:</b> " +
+
+        "<span class='badge badge-resolved'>" +
+        "Resolved" +
+        "</span>" +
+
+        "</p>" +
+
+        "</div>";
+
+    }
+
+    else{
+
+        result.innerHTML =
+
+        "<p style='color:red'>" +
+        "Complaint ID not found." +
+        "</p>";
+
+    }
+
+}
+
+
+/* FEEDBACK */
+
+function submitFeedback(){
+
+    alert(
+        "Thank you! Your feedback has been submitted successfully."
+    );
+
+}
+
+
+/* OFFICER LOGIN */
+
+function officerLogin(event){
+
+    event.preventDefault();
+
+    alert(
+        "Officer login successful!"
+    );
+
+}
+
+
+/* VIEW COMPLAINT */
+
+function viewComplaint(){
+
+    alert(
+        "Complaint details opened successfully."
+    );
+
+}
+
+
+/* UPDATE COMPLAINT */
+
+function updateComplaint(){
+
+    alert(
+        "Complaint status update panel opened."
+    );
+
+}
+
+
+/* SAVE OFFICER UPDATE */
+
+function saveOfficerUpdate(){
+
+    alert(
+        "Complaint status and proof of work updated successfully!"
+    );
+
+}
+
+
+/* ADMIN LOGIN */
+
+function adminLogin(event){
+
+    event.preventDefault();
+
+    alert(
+        "Administrator login successful!"
+    );
+
+}
+
+
+/* CREATE OFFICER */
+
+function createOfficer(){
+
+    let name =
+    document.getElementById(
+        "officerName"
+    ).value;
+
+
+    let department =
+    document.getElementById(
+        "department"
+    ).value;
+
+
+    let id =
+    document.getElementById(
+        "officerId"
+    ).value;
+
+
+    if(
+        name === "" ||
+        department === "" ||
+        id === ""
+    ){
+
+        alert(
+            "Please fill all officer details."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+
+        "Officer account created successfully!\n\n" +
+
+        "Officer ID: " + id
+
+    );
+
+}
+
+
+/* CHANGE PASSWORD */
+
+function changePassword(){
+
+    let password =
+    prompt(
+        "Enter new password:"
+    );
+
+
+    if(password){
+
+        alert(
+            "Officer password changed successfully!"
+        );
+
+    }
+
+}
+
+
+/* DELETE OFFICER */
+
+function deleteOfficer(){
+
+    let confirmDelete =
+    confirm(
+        "Are you sure you want to delete this officer?"
+    );
+
+
+    if(confirmDelete){
+
+        alert(
+            "Officer account deleted successfully!"
+        );
+
+    }
+
+}
+
+
+console.log(
+    "ComplainEase application loaded successfully."
+);
+
+</script>
+
+</body>
+</html>
