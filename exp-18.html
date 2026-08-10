@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AgriMart - Online Agriculture Marketplace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f8f2;
+    color:#26352a;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:#205522;
+    color:white;
+    padding:16px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#f9c74f;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#f9c74f;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#205522,#4c9a43);
+    color:white;
+    padding:80px 6%;
+}
+
+.hero-content{
+    max-width:1100px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    max-width:750px;
+    line-height:1.7;
+    font-size:18px;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section{
+    padding:50px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.section-title h2{
+    color:#205522;
+    font-size:30px;
+}
+
+.section-title p{
+    color:#666;
+    margin-top:8px;
+}
+
+/* BUTTONS */
+
+.btn{
+    border:none;
+    padding:11px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:4px;
+}
+
+.primary{
+    background:#205522;
+    color:white;
+}
+
+.success{
+    background:#198754;
+    color:white;
+}
+
+.warning{
+    background:#d97706;
+    color:white;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+}
+
+.info{
+    background:#2878a8;
+    color:white;
+}
+
+/* CARDS */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.card-icon{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    color:#205522;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#666;
+    line-height:1.6;
+}
+
+/* PRODUCTS */
+
+.product-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+    gap:25px;
+}
+
+.product{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.product-image{
+    height:150px;
+    background:#e8f4e3;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:65px;
+}
+
+.product-info{
+    padding:20px;
+}
+
+.product-info h3{
+    color:#205522;
+    margin-bottom:8px;
+}
+
+.price{
+    color:#198754;
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+/* FORMS */
+
+.form-container{
+    max-width:650px;
+    margin:30px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    color:#205522;
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d5dcd5;
+    border-radius:6px;
+}
+
+.form-group textarea{
+    min-height:100px;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.stat h2{
+    color:#205522;
+    font-size:30px;
+}
+
+.stat p{
+    color:#666;
+    margin-top:8px;
+}
+
+/* TABLE */
+
+.table-container{
+    overflow-x:auto;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+
+th{
+    background:#205522;
+    color:white;
+}
+
+.badge{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.badge-pending{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.badge-shipped{
+    background:#cfe8ff;
+    color:#075985;
+}
+
+.badge-delivered{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+/* SEARCH */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.search-box input{
+    flex:1;
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#205522;
+    color:white;
+    text-align:center;
+    padding:35px;
+    margin-top:50px;
+}
+
+footer p{
+    color:#d7ead4;
+    margin-top:8px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+<div class="logo">
+🌾 Agri<span>Mart</span>
+</div>
+
+<ul class="nav-links">
+
+<li>
+<a onclick="showPage('home')">Home</a>
+</li>
+
+<li>
+<a onclick="showPage('products')">Products</a>
+</li>
+
+<li>
+<a onclick="showPage('login')">Login</a>
+</li>
+
+<li>
+<a onclick="showPage('cart')">Cart 🛒</a>
+</li>
+
+<li>
+<a onclick="showPage('orders')">My Orders</a>
+</li>
+
+<li>
+<a onclick="showPage('farmer')">Farmer</a>
+</li>
+
+</ul>
+
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>
+Smart Farming Starts Here
+</h1>
+
+<p>
+AgriMart connects farmers and agricultural enthusiasts
+with quality seeds, fertilizers, pesticides, farming
+equipment and essential agricultural products.
+</p>
+
+<br>
+
+<button
+class="btn"
+style="background:white;color:#205522"
+onclick="showPage('products')">
+
+Shop Products
+
+</button>
+
+<button
+class="btn"
+style="background:#f9c74f;color:#205522"
+onclick="showPage('farmer')">
+
+Farmer Dashboard
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Our Agricultural Categories
+</h2>
+
+<p>
+Everything you need for better farming
+</p>
+
+</div>
+
+
+<div class="card-grid">
+
+
+<div class="card">
+
+<div class="card-icon">
+🌱
+</div>
+
+<h3>
+Seeds
+</h3>
+
+<p>
+Quality seeds for different crops and
+farming requirements.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🧪
+</div>
+
+<h3>
+Fertilizers
+</h3>
+
+<p>
+Organic and chemical fertilizers to
+improve crop productivity.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🛡️
+</div>
+
+<h3>
+Pesticides
+</h3>
+
+<p>
+Agricultural protection products for
+healthy crops.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🚜
+</div>
+
+<h3>
+Equipment
+</h3>
+
+<p>
+Modern farming equipment and tools
+for efficient agriculture.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section id="products" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+🛒 Agricultural Products
+</h2>
+
+<p>
+Search and shop agricultural products
+</p>
+
+</div>
+
+
+<div class="search-box">
+
+<input
+id="searchProduct"
+placeholder="Search seeds, fertilizers, tools..."
+>
+
+<button
+class="btn primary"
+onclick="searchProduct()">
+
+🔎 Search
+
+</button>
+
+</div>
+
+
+<div class="product-grid">
+
+
+<div class="product">
+
+<div class="product-image">
+🌾
+</div>
+
+<div class="product-info">
+
+<h3>
+Premium Wheat Seeds
+</h3>
+
+<p>
+High quality wheat seeds suitable
+for different soil conditions.
+</p>
+
+<div class="price">
+₹850
+</div>
+
+<button
+class="btn primary"
+onclick="addToCart('Premium Wheat Seeds',850)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="product">
+
+<div class="product-image">
+🌱
+</div>
+
+<div class="product-info">
+
+<h3>
+Organic Rice Seeds
+</h3>
+
+<p>
+High-yield organic rice seeds
+for sustainable farming.
+</p>
+
+<div class="price">
+₹950
+</div>
+
+<button
+class="btn primary"
+onclick="addToCart('Organic Rice Seeds',950)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="product">
+
+<div class="product-image">
+🧪
+</div>
+
+<div class="product-info">
+
+<h3>
+Organic Fertilizer
+</h3>
+
+<p>
+Natural fertilizer for improved
+soil quality and crop growth.
+</p>
+
+<div class="price">
+₹650
+</div>
+
+<button
+class="btn primary"
+onclick="addToCart('Organic Fertilizer',650)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="product">
+
+<div class="product-image">
+🛡️
+</div>
+
+<div class="product-info">
+
+<h3>
+Crop Protection Spray
+</h3>
+
+<p>
+Effective crop protection solution
+for agricultural use.
+</p>
+
+<div class="price">
+₹720
+</div>
+
+<button
+class="btn primary"
+onclick="addToCart('Crop Protection Spray',720)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="product">
+
+<div class="product-image">
+🚜
+</div>
+
+<div class="product-info">
+
+<h3>
+Mini Garden Tool Kit
+</h3>
+
+<p>
+Complete set of useful tools
+for farming and gardening.
+</p>
+
+<div class="price">
+₹1,250
+</div>
+
+<button
+class="btn primary"
+onclick="addToCart('Mini Garden Tool Kit',1250)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="product">
+
+<div class="product-image">
+💧
+</div>
+
+<div class="product-info">
+
+<h3>
+Drip Irrigation Kit
+</h3>
+
+<p>
+Efficient water management
+solution for crops.
+</p>
+
+<div class="price">
+₹1,800
+</div>
+
+<button
+class="btn primary"
+onclick="addToCart('Drip Irrigation Kit',1800)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login" class="page section">
+
+<div class="form-container">
+
+<h2>
+🔐 AgriMart Login
+</h2>
+
+<form onsubmit="sendOTP(event)">
+
+<div class="form-group">
+
+<label>
+Mobile Number / Email
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input
+type="password"
+required>
+
+</div>
+
+
+<button class="btn primary">
+Login & Get OTP
+</button>
+
+</form>
+
+<p style="text-align:center;margin-top:20px">
+
+New user?
+
+<a
+href="#"
+onclick="showPage('register')">
+
+Register
+
+</a>
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= REGISTER ================= -->
+
+<section id="register" class="page section">
+
+<div class="form-container">
+
+<h2>
+📝 User Registration
+</h2>
+
+<form onsubmit="register(event)">
+
+<div class="form-group">
+
+<label>
+Full Name
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mobile Number
+</label>
+
+<input required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+type="email"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input
+type="password"
+required>
+
+</div>
+
+
+<button class="btn primary">
+Register
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= OTP ================= -->
+
+<section id="otp" class="page section">
+
+<div class="form-container">
+
+<h2>
+📱 OTP Verification
+</h2>
+
+<p style="text-align:center;color:#666;margin-bottom:20px">
+
+Enter the OTP sent to your registered mobile number.
+
+</p>
+
+
+<div class="form-group">
+
+<label>
+Enter OTP
+</label>
+
+<input
+id="otpInput"
+maxlength="6"
+placeholder="Enter 6 digit OTP">
+
+</div>
+
+
+<button
+class="btn primary"
+onclick="verifyOTP()">
+
+Verify OTP
+
+</button>
+
+
+<button
+class="btn info"
+onclick="resendOTP()">
+
+Resend OTP
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= CART ================= -->
+
+<section id="cart" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+🛒 Shopping Cart
+</h2>
+
+<p>
+Review your selected agricultural products
+</p>
+
+</div>
+
+
+<div
+id="cartItems"
+class="card">
+
+<p>
+Your cart is currently empty.
+</p>
+
+</div>
+
+
+<br>
+
+<div
+id="cartTotal"
+class="card">
+
+<h3>
+Total: ₹0
+</h3>
+
+</div>
+
+
+<br>
+
+<button
+class="btn success"
+onclick="checkout()">
+
+Proceed to Checkout
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADDRESS ================= -->
+
+<section id="address" class="page section">
+
+<div class="form-container">
+
+<h2>
+📍 Shipping Address
+</h2>
+
+<div class="form-group">
+
+<label>
+Full Name
+</label>
+
+<input
+placeholder="Enter full name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mobile Number
+</label>
+
+<input
+placeholder="Enter mobile number">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Address
+</label>
+
+<textarea
+placeholder="House number, street, village..."></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+City
+</label>
+
+<input>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+State
+</label>
+
+<input>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+PIN Code
+</label>
+
+<input>
+
+</div>
+
+
+<button
+class="btn success"
+onclick="placeOrder()">
+
+Place Order
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= ORDERS ================= -->
+
+<section id="orders" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+📦 My Orders
+</h2>
+
+<p>
+Track your agricultural product orders
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="stat">
+
+<h2>
+4
+</h2>
+
+<p>
+Total Orders
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+1
+</h2>
+
+<p>
+Pending
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+1
+</h2>
+
+<p>
+Shipped
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+2
+</h2>
+
+<p>
+Delivered
+</p>
+
+</div>
+
+</div>
+
+
+<br><br>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Order ID
+</th>
+
+<th>
+Product
+</th>
+
+<th>
+Amount
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+ORD1001
+</td>
+
+<td>
+Premium Wheat Seeds
+</td>
+
+<td>
+₹850
+</td>
+
+<td>
+08 Aug 2026
+</td>
+
+<td>
+
+<span class="badge badge-shipped">
+Shipped
+</span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+ORD1002
+</td>
+
+<td>
+Organic Fertilizer
+</td>
+
+<td>
+₹650
+</td>
+
+<td>
+05 Aug 2026
+</td>
+
+<td>
+
+<span class="badge badge-delivered">
+Delivered
+</span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+ORD1003
+</td>
+
+<td>
+Drip Irrigation Kit
+</td>
+
+<td>
+₹1,800
+</td>
+
+<td>
+03 Aug 2026
+</td>
+
+<td>
+
+<span class="badge badge-pending">
+Pending
+</span>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= WALLET ================= -->
+
+<section id="wallet" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+💳 My Wallet
+</h2>
+
+<p>
+Manage your AgriMart wallet balance
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="stat">
+
+<h2>
+₹5,250
+</h2>
+
+<p>
+Available Balance
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+₹12,500
+</h2>
+
+<p>
+Total Added
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+₹7,250
+</h2>
+
+<p>
+Total Spent
+</p>
+
+</div>
+
+</div>
+
+
+<div class="form-container">
+
+<h2>
+➕ Add Money
+</h2>
+
+<div class="form-group">
+
+<label>
+Amount
+</label>
+
+<input
+id="walletAmount"
+type="number"
+placeholder="Enter amount">
+
+</div>
+
+<button
+class="btn success"
+onclick="addMoney()">
+
+Add Money
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FARMER DASHBOARD ================= -->
+
+<section id="farmer" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+👨‍🌾 Farmer Dashboard
+</h2>
+
+<p>
+Manage products, orders and sales
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="stat">
+
+<h2>
+18
+</h2>
+
+<p>
+My Products
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+₹45,800
+</h2>
+
+<p>
+My Sales
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+12
+</h2>
+
+<p>
+Total Orders
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+5
+</h2>
+
+<p>
+Pending Orders
+</p>
+
+</div>
+
+</div>
+
+
+<br><br>
+
+
+<div class="card-grid">
+
+
+<div class="card">
+
+<div class="card-icon">
+➕
+</div>
+
+<h3>
+Add Product
+</h3>
+
+<p>
+Add new agricultural products
+to AgriMart.
+</p>
+
+<button
+class="btn primary"
+onclick="showPage('addProduct')">
+
+Add Product
+
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+📦
+</div>
+
+<h3>
+Manage Orders
+</h3>
+
+<p>
+View customer orders and update
+their status.
+</p>
+
+<button
+class="btn info"
+onclick="showPage('farmerOrders')">
+
+Manage Orders
+
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+📈
+</div>
+
+<h3>
+My Sales
+</h3>
+
+<p>
+View your sales and revenue information.
+</p>
+
+<button
+class="btn success"
+onclick="showPage('sales')">
+
+View Sales
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADD PRODUCT ================= -->
+
+<section id="addProduct" class="page section">
+
+<div class="form-container">
+
+<h2>
+➕ Add New Product
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Product Name
+</label>
+
+<input
+id="productName"
+placeholder="Enter product name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Category
+</label>
+
+<select>
+
+<option>
+Seeds
+</option>
+
+<option>
+Fertilizers
+</option>
+
+<option>
+Pesticides
+</option>
+
+<option>
+Equipment
+</option>
+
+<option>
+Tools
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Price
+</label>
+
+<input
+type="number"
+id="productPrice"
+placeholder="Enter price">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Product Description
+</label>
+
+<textarea
+placeholder="Enter product description"></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Upload Product Image
+</label>
+
+<input
+type="file"
+accept="image/*">
+
+</div>
+
+
+<button
+class="btn success"
+onclick="addProduct()">
+
+Add Product
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= FARMER ORDERS ================= -->
+
+<section id="farmerOrders" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+📦 Manage Customer Orders
+</h2>
+
+<p>
+Update order and shipping status
+</p>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Order ID
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Product
+</th>
+
+<th>
+Amount
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+ORD2001
+</td>
+
+<td>
+Rahul
+</td>
+
+<td>
+Wheat Seeds
+</td>
+
+<td>
+₹850
+</td>
+
+<td>
+
+<span class="badge badge-pending">
+Pending
+</span>
+
+</td>
+
+<td>
+
+<button
+class="btn success"
+onclick="updateShipping()">
+
+Update
+
+</button>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+ORD2002
+</td>
+
+<td>
+Anjali
+</td>
+
+<td>
+Organic Fertilizer
+</td>
+
+<td>
+₹1,300
+</td>
+
+<td>
+
+<span class="badge badge-shipped">
+Shipped
+</span>
+
+</td>
+
+<td>
+
+<button
+class="btn info"
+onclick="updateShipping()">
+
+Update
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SALES ================= -->
+
+<section id="sales" class="page section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+📈 My Sales
+</h2>
+
+<p>
+Farmer sales and revenue summary
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="stat">
+
+<h2>
+₹45,800
+</h2>
+
+<p>
+Total Sales
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+68
+</h2>
+
+<p>
+Products Sold
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+₹8,250
+</h2>
+
+<p>
+This Month
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2>
+4.8 ⭐
+</h2>
+
+<p>
+Seller Rating
+</p>
+
+</div>
+
+</div>
+
+
+<br><br>
+
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>
+Product
+</th>
+
+<th>
+Units Sold
+</th>
+
+<th>
+Revenue
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+Wheat Seeds
+</td>
+
+<td>
+25
+</td>
+
+<td>
+₹21,250
+</td>
+
+<td>
+Active
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Organic Fertilizer
+</td>
+
+<td>
+30
+</td>
+
+<td>
+₹19,500
+</td>
+
+<td>
+Active
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Drip Irrigation Kit
+</td>
+
+<td>
+5
+</td>
+
+<td>
+₹9,000
+</td>
+
+<td>
+Active
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<h3>
+🌾 AgriMart
+</h3>
+
+<p>
+Connecting farmers with quality agricultural products.
+</p>
+
+<p>
+© 2026 AgriMart. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+/* PAGE NAVIGATION */
+
+function showPage(page){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(function(p){
+
+        p.classList.remove("active");
+
+    });
+
+
+    document
+    .getElementById(page)
+    .classList.add("active");
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* REGISTER */
+
+function register(event){
+
+    event.preventDefault();
+
+    alert(
+        "Registration successful!\nPlease login to continue."
+    );
+
+    showPage("login");
+
+}
+
+
+/* LOGIN */
+
+function sendOTP(event){
+
+    event.preventDefault();
+
+    alert(
+        "OTP sent successfully!\n\nDemo OTP: 123456"
+    );
+
+    showPage("otp");
+
+}
+
+
+/* OTP */
+
+function verifyOTP(){
+
+    let otp =
+    document.getElementById(
+        "otpInput"
+    ).value;
+
+
+    if(otp === "123456"){
+
+        alert(
+            "OTP verified successfully!"
+        );
+
+        showPage("products");
+
+    }
+
+    else{
+
+        alert(
+            "Invalid OTP. Please try again."
+        );
+
+    }
+
+}
+
+
+function resendOTP(){
+
+    alert(
+        "New OTP sent successfully.\n\nDemo OTP: 123456"
+    );
+
+}
+
+
+/* SEARCH */
+
+function searchProduct(){
+
+    let search =
+    document.getElementById(
+        "searchProduct"
+    ).value;
+
+
+    if(search === ""){
+
+        alert(
+            "Please enter a product name."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Searching for: " + search
+    );
+
+}
+
+
+/* CART */
+
+let cart = [];
+
+
+function addToCart(name,price){
+
+    cart.push({
+        name:name,
+        price:price
+    });
+
+
+    alert(
+        name +
+        " has been added to your cart."
+    );
+
+
+    updateCart();
+
+}
+
+
+function updateCart(){
+
+    let cartItems =
+    document.getElementById(
+        "cartItems"
+    );
+
+
+    let total = 0;
+
+
+    if(cart.length === 0){
+
+        cartItems.innerHTML =
+        "<p>Your cart is currently empty.</p>";
+
+    }
+
+    else{
+
+        let html = "<h3>Cart Items</h3><br>";
+
+
+        cart.forEach(function(item,index){
+
+            total += item.price;
+
+
+            html +=
+
+            "<div style='padding:15px;border-bottom:1px solid #ddd'>" +
+
+            "<strong>" +
+            item.name +
+            "</strong>" +
+
+            " - ₹" +
+            item.price +
+
+            " <button class='btn danger' " +
+
+            "onclick='removeCart(" +
+            index +
+            ")'>Remove</button>" +
+
+            "</div>";
+
+        });
+
+
+        cartItems.innerHTML = html;
+
+    }
+
+
+    document.getElementById(
+        "cartTotal"
+    ).innerHTML =
+
+    "<h3>Total: ₹" +
+    total +
+    "</h3>";
+
+}
+
+
+function removeCart(index){
+
+    cart.splice(index,1);
+
+    updateCart();
+
+    alert(
+        "Item removed from cart."
+    );
+
+}
+
+
+/* CHECKOUT */
+
+function checkout(){
+
+    if(cart.length === 0){
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    showPage("address");
+
+}
+
+
+/* PLACE ORDER */
+
+function placeOrder(){
+
+    alert(
+        "Order placed successfully!\n\n" +
+        "Order ID: ORD1004"
+    );
+
+
+    cart = [];
+
+    updateCart();
+
+    showPage("orders");
+
+}
+
+
+/* WALLET */
+
+function addMoney(){
+
+    let amount =
+    document.getElementById(
+        "walletAmount"
+    ).value;
+
+
+    if(amount === "" || amount <= 0){
+
+        alert(
+            "Enter a valid amount."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "₹" +
+        amount +
+        " added to your wallet successfully."
+    );
+
+}
+
+
+/* FARMER ADD PRODUCT */
+
+function addProduct(){
+
+    let name =
+    document.getElementById(
+        "productName"
+    ).value;
+
+
+    let price =
+    document.getElementById(
+        "productPrice"
+    ).value;
+
+
+    if(name === "" || price === ""){
+
+        alert(
+            "Please enter product name and price."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+
+        "Product added successfully!\n\n" +
+
+        "Product: " +
+        name +
+
+        "\nPrice: ₹" +
+        price
+
+    );
+
+
+    showPage("farmer");
+
+}
+
+
+/* SHIPPING */
+
+function updateShipping(){
+
+    alert(
+        "Shipping status update module opened."
+    );
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+    alert(
+        "You have been logged out successfully."
+    );
+
+    showPage("home");
+
+}
+
+</script>
+
+</body>
+</html>
