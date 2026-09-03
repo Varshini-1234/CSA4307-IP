@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Portal — Server-Oriented</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand"><span class="dot"></span> Job Portal</div>
+      <nav><a href="../index.html">Home</a><a href="../backend-oriented/index.html">Backend view</a></nav>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="project-hero">
+      <a class="back" href="../index.html">&larr; Back</a>
+      <span class="eyebrow">Server-Oriented Architecture</span>
+      <h1>Job Portal — Server Dashboard</h1>
+      <p class="desc">Shows how a vacancy search or job application request travels through the stack — from the client, through the load balancer and app server, to the database that stores vacancies, resumes and applications.</p>
+    </div>
+
+    <h2 class="section-title">Traffic & Uptime</h2>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">99.95%</div><div class="lbl">Uptime (30 days)</div></div>
+      <div class="stat"><div class="num">142 ms</div><div class="lbl">Avg. response time</div></div>
+      <div class="stat"><div class="num">2,310</div><div class="lbl">Vacancy searches / hr</div></div>
+      <div class="stat"><div class="num">87</div><div class="lbl">Applications / hr</div></div>
+    </div>
+
+    <h2 class="section-title">Request Flow</h2>
+    <div class="arch">
+      <div class="node"><div class="ico">🌐</div><h4>Client</h4><p>Applicant / Director browser</p></div>
+      <div class="arch arrow">&rarr;</div>
+      <div class="node"><div class="ico">⚖️</div><h4>Load Balancer</h4><p>Routes to nearest app node</p></div>
+      <div class="node"><div class="ico">🖥️</div><h4>App Server</h4><p>Auth, search, matching logic</p></div>
+      <div class="node"><div class="ico">⚡</div><h4>Cache</h4><p>Popular vacancy listings</p></div>
+      <div class="node"><div class="ico">🗄️</div><h4>Database</h4><p>Vacancies, users, resumes</p></div>
+    </div>
+
+    <h2 class="section-title">API Endpoints</h2>
+    <table class="data">
+      <tr><th>Method</th><th>Endpoint</th><th>Auth</th><th>Status</th></tr>
+      <tr><td>POST</td><td>/api/v1/auth/login</td><td>None</td><td><span class="status-dot up"></span>200 OK</td></tr>
+      <tr><td>GET</td><td>/api/v1/vacancies?loc=&cat=</td><td>None</td><td><span class="status-dot up"></span>200 OK</td></tr>
+      <tr><td>POST</td><td>/api/v1/vacancies</td><td>Director role</td><td><span class="status-dot up"></span>201 Created</td></tr>
+      <tr><td>POST</td><td>/api/v1/applications</td><td>User role</td><td><span class="status-dot idle"></span>202 Queued</td></tr>
+      <tr><td>GET</td><td>/api/v1/directors/pending</td><td>Admin role</td><td><span class="status-dot up"></span>200 OK</td></tr>
+    </table>
+
+    <h2 class="section-title">Live Request Log</h2>
+    <div class="log">
+      <div class="l"><span class="info">[09:41:02]</span> GET  <span class="path">/api/v1/vacancies?loc=chennai&cat=it</span> <span class="ok">200</span> 58ms</div>
+      <div class="l"><span class="info">[09:41:06]</span> POST <span class="path">/api/v1/auth/login</span> <span class="ok">200</span> 121ms</div>
+      <div class="l"><span class="info">[09:41:09]</span> POST <span class="path">/api/v1/vacancies</span> <span class="ok">201</span> new posting saved</div>
+      <div class="l"><span class="info">[09:41:13]</span> POST <span class="path">/api/v1/applications</span> <span class="warn">202</span> resume queued for review</div>
+      <div class="l"><span class="info">[09:41:17]</span> GET  <span class="path">/api/v1/directors/pending</span> <span class="ok">200</span> 74ms</div>
+    </div>
+
+    <div class="serverbar">
+      <span class="lamp"></span>
+      load-balancer: healthy &middot; cache hit-rate: 88% &middot; db pool: 12/40 connections
+    </div>
+  </div>
+
+  <footer>Job Portal &middot; Server-Oriented View</footer>
+</body>
+</html>
