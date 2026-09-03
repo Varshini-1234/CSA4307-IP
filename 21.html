@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Portal — Backend-Oriented</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand"><span class="dot"></span> Job Portal</div>
+      <nav><a href="../index.html">Home</a><a href="../server-oriented/index.html">Server view</a></nav>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="project-hero">
+      <a class="back" href="../index.html">&larr; Back</a>
+      <span class="eyebrow">Backend-Oriented Admin Panel</span>
+      <h1>Job Portal — Admin Dashboard</h1>
+      <p class="desc">A CRUD-style backend for the job portal: approve directors, review posted vacancies and applicants, and manage the platform's role-based modules.</p>
+    </div>
+
+    <h2 class="section-title">Overview</h2>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">312</div><div class="lbl">Open vacancies</div></div>
+      <div class="stat"><div class="num">1,875</div><div class="lbl">Applicants registered</div></div>
+      <div class="stat"><div class="num">6</div><div class="lbl">Directors pending approval</div></div>
+      <div class="stat"><div class="num">452</div><div class="lbl">Applications this week</div></div>
+    </div>
+
+    <h2 class="section-title">Directors — Approval Queue</h2>
+    <table class="data">
+      <tr><th>ID</th><th>Company / Director</th><th>Vacancies posted</th><th>Status</th><th>Action</th></tr>
+      <tr><td>#D101</td><td>R. Kumar — TechNova Pvt Ltd</td><td>4</td><td><span class="status-dot idle"></span>Pending</td><td>Approve / Reject</td></tr>
+      <tr><td>#D102</td><td>S. Bhatt — Orion Logistics</td><td>2</td><td><span class="status-dot up"></span>Approved</td><td>Edit / Suspend</td></tr>
+      <tr><td>#D103</td><td>M. Iyer — GreenLeaf Foods</td><td>7</td><td><span class="status-dot up"></span>Approved</td><td>Edit / Suspend</td></tr>
+      <tr><td>#D104</td><td>V. Nair — Coastal Retail Group</td><td>0</td><td><span class="status-dot idle"></span>Pending</td><td>Approve / Reject</td></tr>
+    </table>
+    <div class="btn-row">
+      <button class="btn primary">+ Add director manually</button>
+      <button class="btn">Export applicants CSV</button>
+      <button class="btn">Bulk approve directors</button>
+    </div>
+
+    <h2 class="section-title">Recent Vacancies</h2>
+    <table class="data">
+      <tr><th>Vacancy</th><th>Category</th><th>Location</th><th>Applicants</th><th>Status</th></tr>
+      <tr><td>Backend Developer</td><td>IT</td><td>Chennai</td><td>28</td><td><span class="status-dot up"></span>Live</td></tr>
+      <tr><td>Logistics Coordinator</td><td>Operations</td><td>Coimbatore</td><td>11</td><td><span class="status-dot up"></span>Live</td></tr>
+      <tr><td>Quality Analyst</td><td>Manufacturing</td><td>Madurai</td><td>6</td><td><span class="status-dot idle"></span>Closing soon</td></tr>
+    </table>
+
+    <h2 class="section-title">Role-Based Access Modules</h2>
+    <div class="roles">
+      <div class="role-panel">
+        <div class="role-head"><h4>Admin</h4><span class="pill">MODULE</span></div>
+        <ul>
+          <li>Login</li>
+          <li>Approve director</li>
+          <li>View user</li>
+          <li>View report / director</li>
+        </ul>
+      </div>
+      <div class="role-panel">
+        <div class="role-head"><h4>Director</h4><span class="pill">MODULE</span></div>
+        <ul>
+          <li>Register</li>
+          <li>Login</li>
+          <li>Post vacancy (image, description, contact)</li>
+          <li>View vacancy</li>
+          <li>View applied users</li>
+          <li>Logout</li>
+        </ul>
+      </div>
+      <div class="role-panel">
+        <div class="role-head"><h4>User</h4><span class="pill">MODULE</span></div>
+        <ul>
+          <li>Register</li>
+          <li>Login</li>
+          <li>Search vacancy</li>
+          <li>Filter by location / category</li>
+          <li>Apply for vacancy</li>
+          <li>Logout</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="serverbar">
+      <span class="lamp"></span>
+      db: connected &middot; last sync: 1 min ago &middot; audit log: enabled
+    </div>
+  </div>
+
+  <footer>Job Portal &middot; Backend-Oriented View</footer>
+</body>
+</html>
