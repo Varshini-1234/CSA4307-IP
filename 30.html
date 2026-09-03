@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>IJSSE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ISSN 2395-1443 (print) / 2395-1451 (online) — the operating system for authors, reviewers, and editors behind the journal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Spectral:wght@400;500;600;700&ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F1B3C; --surface: #162752; --surface2: #1D3268; --text: #F1EEE2; --muted: #A9B3D6;
+  --accent: #C9A24B; --accent2: #7C9CD6; --radius: 3px;
+  --disp: 'Spectral', serif; --body: 'Karla', sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--body); line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+.eyebrow {
+  display: inline-block; font-family: var(--body); font-size: 12px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 14px;
+}
+h1, h2, h3 { font-family: var(--disp); font-weight: 600; margin: 0 0 .4em; line-height: 1.08; }
+h1 { font-size: clamp(2.4rem, 5.4vw, 4.2rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+p { color: var(--muted); margin: 0 0 1em; }
+header.site {
+  position: sticky; top: 0; z-index: 20; backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+header.site .bar { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; max-width: 1120px; margin: 0 auto; }
+.brand { font-family: var(--disp); font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+.brand span { color: var(--accent); }
+nav.top a {
+  text-decoration: none; color: var(--muted); font-size: .92rem; margin-left: 26px; font-weight: 500;
+  transition: color .15s ease;
+}
+nav.top a:hover { color: var(--text); }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--bg);
+  padding: 12px 22px; border-radius: var(--radius); font-weight: 600; text-decoration: none; font-size: .92rem;
+  border: none; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 60%, transparent); }
+.btn.ghost {
+  background: transparent; color: var(--text); border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+}
+.hero { padding: 108px 0 76px; position: relative; overflow: hidden; }
+.hero .glow {
+  position: absolute; width: 620px; height: 620px; border-radius: 50%; filter: blur(120px); opacity: .35;
+  background: radial-gradient(circle, var(--accent), transparent 70%); top: -220px; right: -160px; pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 760px; }
+.hero p.tagline { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--text); opacity: .82; max-width: 620px; }
+.hero-actions { display: flex; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+.stat-strip { display: flex; gap: 40px; margin-top: 56px; flex-wrap: wrap; }
+.stat-strip div b { font-family: var(--disp); font-size: 1.6rem; display: block; color: var(--accent); }
+.stat-strip div span { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+section.modules { padding: 64px 0 96px; }
+.modules-head { max-width: 640px; margin-bottom: 44px; }
+.role-card {
+  background: var(--surface); border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: var(--radius); padding: 30px 28px; position: relative;
+}
+.role-card h3 { font-size: 1.15rem; display: flex; align-items: center; gap: 10px; }
+.role-card h3::before {
+  content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none;
+}
+.role-card ul { list-style: none; margin: 16px 0 0; padding: 0; }
+.role-card li {
+  padding: 9px 0; border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent); font-size: .93rem; color: var(--text);
+  opacity: .88; display: flex; gap: 10px;
+}
+.role-card li::before { content: '→'; color: var(--accent2); flex: none; }
+
+/* layout: stacked */
+.layout-stacked .role-list { display: grid; gap: 22px; }
+.layout-stacked .role-card { max-width: 780px; }
+
+/* layout: split */
+.layout-split .role-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+@media (max-width: 760px) { .layout-split .role-list { grid-template-columns: 1fr; } }
+
+/* layout: cards */
+.layout-cards .role-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) { .layout-cards .role-list { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .layout-cards .role-list { grid-template-columns: 1fr; } }
+
+/* layout: sidebar */
+.layout-sidebar .modules-body { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+.layout-sidebar .side-nav { position: sticky; top: 90px; display: grid; gap: 4px; }
+.layout-sidebar .side-nav a {
+  text-decoration: none; color: var(--muted); font-size: .88rem; padding: 8px 12px; border-radius: 6px; border-left: 2px solid transparent;
+}
+.layout-sidebar .side-nav a:hover { color: var(--text); border-left-color: var(--accent); }
+.layout-sidebar .role-list { display: grid; gap: 20px; }
+@media (max-width: 800px) { .layout-sidebar .modules-body { grid-template-columns: 1fr; } .layout-sidebar .side-nav { position: static; grid-auto-flow: column; overflow-x: auto; } }
+
+.cta-band {
+  margin: 0 0 100px; padding: 56px 44px; border-radius: calc(var(--radius) + 6px);
+  background: linear-gradient(135deg, var(--surface2), var(--surface)); display: flex; align-items: center;
+  justify-content: space-between; gap: 24px; flex-wrap: wrap; border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.cta-band h2 { margin: 0 0 6px; }
+.cta-band p { margin: 0; max-width: 420px; }
+footer { padding: 34px 0 60px; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
+footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+footer p { margin: 0; font-size: .85rem; }
+footer a.back { font-size: .85rem; text-decoration: none; color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body class="layout-sidebar">
+<header class="site">
+  <div class="bar">
+    <div class="brand">IJSSE<span>.</span></div>
+    <nav class="top">
+      <a href="#modules">Modules</a>
+      <a href="#cta">Get started</a>
+      <a class="btn ghost" href="../index.html" style="margin-left:26px;">All projects</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="glow"></div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Project 30 · Case Study</span>
+    <h1>IJSSE</h1>
+    <p class="tagline">Scopus-indexed. Peer-reviewed. Open for submission.</p>
+    <p style="max-width:560px;">ISSN 2395-1443 (print) / 2395-1451 (online) — the operating system for authors, reviewers, and editors behind the journal.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#modules">Explore the modules</a>
+      <a class="btn ghost" href="#cta">Request a demo</a>
+    </div>
+    <div class="stat-strip">
+      <div><b>5</b><span>User Roles</span></div>
+      <div><b>16</b><span>Core Features</span></div>
+      <div><b>100%</b><span>Responsive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="modules" id="modules">
+  <div class="wrap">
+    <div class="modules-head">
+      <span class="eyebrow">System Design</span>
+      <h2>Built around who's using it</h2>
+      <p>Every role gets exactly the tools it needs — nothing borrowed from a template, nothing missing on launch day.</p>
+    </div>
+    <div class="modules-body"><nav class="side-nav"><a href="#g0">Editorial Board</a><a href="#g1">Reviewers</a><a href="#g2">Author</a><a href="#g3">Articles</a><a href="#g4">Call for Paper</a></nav><div class="role-list"><div class="role-card" id="g0"><h3>Editorial Board</h3><ul><li>Editor registration &amp; login</li><li>Editorial committee</li><li>Editor responsibilities</li></ul></div><div class="role-card" id="g1"><h3>Reviewers</h3><ul><li>Reviewer registration &amp; login</li><li>Assigned reviewers per article</li></ul></div><div class="role-card" id="g2"><h3>Author</h3><ul><li>Registration &amp; login</li><li>Papers under an author</li><li>Instructions, template &amp; guidelines</li><li>Publication charges &amp; copyright form</li></ul></div><div class="role-card" id="g3"><h3>Articles</h3><ul><li>Current issue &amp; archive</li><li>Most viewed / most cited</li><li>About to print</li></ul></div><div class="role-card" id="g4"><h3>Call for Paper</h3><ul><li>Submit manuscript</li><li>Indexed list</li><li>Subscribe to newsletter</li><li>View feedback</li></ul></div></div></div>
+  </div>
+</section>
+
+<section class="wrap" id="cta">
+  <div class="cta-band">
+    <div>
+      <h2>Ready to see IJSSE in action?</h2>
+      <p>ISSN 2395-1443 (print) / 2395-1451 (online) — the operating system for authors, reviewers, and editors behind the journal.</p>
+    </div>
+    <a class="btn" href="../index.html">Back to all 20 projects</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 IJSSE. Built for academic demonstration.</p>
+    <a class="back" href="../index.html">&larr; All Projects</a>
+  </div>
+</footer>
+</body>
+</html>
